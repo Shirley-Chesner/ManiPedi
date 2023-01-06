@@ -16,7 +16,7 @@ public class Post {
     public float score = 0;
     public String description="";
     public String avatarURL = "";
-    public ArrayList<String> pictures = new ArrayList<>();
+//    public ArrayList<String> pictures = new ArrayList<>();
 
     public Post() {}
 
@@ -25,15 +25,15 @@ public class Post {
                 String location,
                 float score,
                 String description,
-                String avatarURL,
-                ArrayList<String> pictures) {
+                String avatarURL
+                /*ArrayList<String> pictures*/) {
         this.id = id;
         this.owner = owner;
         this.location = location;
         this.score = score;
         this.description = description;
         this.avatarURL = avatarURL;
-        this.pictures = pictures;
+//        this.pictures = pictures;
     }
 
     @NonNull
@@ -85,11 +85,11 @@ public class Post {
         this.avatarURL = avatarURL;
     }
 
-    public ArrayList<String> getPictures() {
-        return pictures;
-    }
-
-    public void setPictures(ArrayList<String> pictures) {
-        this.pictures = pictures;
-    }
+//    public ArrayList<String> getPictures() {
+//        return pictures;
+//    }
+//
+//    public void setPictures(ArrayList<String> pictures) {
+//        this.pictures = pictures;
+//    }
 }

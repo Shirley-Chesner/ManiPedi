@@ -11,7 +11,7 @@ abstract class AppLocalDbRepository extends RoomDatabase {
     public abstract PostDao postDao();
 }
 
-public class AppLocalDB{
+public class AppLocalDB {
     static public AppLocalDbRepository getAppDB() {
         return Room.databaseBuilder(ManiPediApplication.getMyContext(),
                         AppLocalDbRepository.class,
