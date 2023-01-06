@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.manipedi.databinding.FragmentHomePageBinding;
 
-public class HomePageFragment extends Fragment {
+public class  HomePageFragment extends Fragment {
     FragmentHomePageBinding binding;
 
 //    public static HomePageFragment newInstance(String param1, String param2) {
