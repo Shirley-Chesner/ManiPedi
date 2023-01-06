@@ -27,6 +27,12 @@
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="204dp"
                 android:text="New Hot Places:" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/PostsList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
         </androidx.appcompat.widget.LinearLayoutCompat>
     </ScrollView>
 

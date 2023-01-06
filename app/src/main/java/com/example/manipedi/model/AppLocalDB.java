@@ -6,7 +6,7 @@ import androidx.room.RoomDatabase;
 
 import com.example.manipedi.ManiPediApplication;
 
-@Database(entities = {Post.class}, version = 69)
+@Database(entities = {Post.class}, version = 100)
 abstract class AppLocalDbRepository extends RoomDatabase {
     public abstract PostDao postDao();
 }

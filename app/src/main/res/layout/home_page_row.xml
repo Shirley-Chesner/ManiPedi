@@ -5,14 +5,14 @@
     android:id="@+id/te"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="blah blah blah">
+    android:background="?attr/selectableItemBackground">
     <!-- A CardView that contains a TextView -->
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        card_view:cardCornerRadius="4dp">
+        card_view:cardCornerRadius="16dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -23,6 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
+                android:layout_marginTop="4dp"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent"
                 card_view:srcCompat="@drawable/user_icon" />
@@ -31,6 +32,7 @@
                 android:id="@+id/owner_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:text="name"
                 card_view:layout_constraintStart_toEndOf="@+id/owner_icon"
                 card_view:layout_constraintTop_toTopOf="parent" />
@@ -41,6 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:layout_marginEnd="6dp"
+                android:layout_marginBottom="4dp"
                 android:ems="10"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
@@ -55,6 +58,7 @@
                 android:id="@+id/score_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:layout_marginEnd="6dp"
                 android:ems="10"
                 android:inputType="number"
@@ -66,9 +70,10 @@
                 android:id="@+id/score_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:text="Score:"
-                card_view:layout_constraintBaseline_toBaselineOf="@+id/score_number"
-                card_view:layout_constraintEnd_toStartOf="@+id/score_number" />
+                card_view:layout_constraintEnd_toStartOf="@+id/score_number"
+                card_view:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/owner_location"

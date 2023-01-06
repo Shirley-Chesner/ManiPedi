@@ -5,16 +5,17 @@ import android.os.Looper;
 
 import androidx.core.os.HandlerCompat;
 
+import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class DBImplementation {
     private static DBImplementation _instance;
 
-    private Executor executor = Executors.newSingleThreadExecutor();
-    private Handler mainHandler = HandlerCompat.createAsync(Looper.getMainLooper());
+    private final Executor executor = Executors.newSingleThreadExecutor();
+    private final Handler mainHandler = HandlerCompat.createAsync(Looper.getMainLooper());
 
-    private AppLocalDbRepository localDB = AppLocalDB.getAppDB();
+    private final AppLocalDbRepository localDB = AppLocalDB.getAppDB();
 
     private DBImplementation() {}
 
@@ -25,5 +26,38 @@ public class DBImplementation {
         return _instance;
     }
 
-//    public void getAllPosts
+
+    public interface GetAllPostsListener{
+        void onComplete(List<Post> data);
+    }
+    public void getAllPosts(GetAllPostsListener callback) {
+        executor.execute(()->{
+            List<Post> data = localDB.postDao().getAll();
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            mainHandler.post(()->{
+                callback.onComplete(data);
+            });
+        });
+    }
+
+    public interface AddPostListener{
+        void onComplete();
+    }
+    public void addPost(Post p, AddPostListener listener){
+    executor.execute(()->{
+        localDB.postDao().insertAll(p);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        mainHandler.post(()->{
+            listener.onComplete();
+        });
+    });
+    }
 }
