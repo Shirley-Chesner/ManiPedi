@@ -48,10 +48,11 @@ class PostsListHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Post p, int pos) throws IOException {
-        ownerName.setText(p.owner);
         URL myUrl = new URL(p.avatarURL);
         InputStream inputStream = (InputStream)myUrl.getContent();
         Drawable drawable = Drawable.createFromStream(inputStream, null);
+
+        ownerName.setText(p.owner);
         ownerPic.setImageDrawable(drawable);
         description.setText(p.description);
         score.setText((int) p.score); // TODO: find out what to do about the float

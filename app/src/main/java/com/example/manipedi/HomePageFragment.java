@@ -36,9 +36,9 @@ public class HomePageFragment extends Fragment {
         binding.PostsList.setAdapter(adapter);
 
         Post p = new Post("aaa", "avital", "space", 2, "save me", "");
-        DBImplementation.instance().addPost(p, () -> {});
+//        DBImplementation.instance().addPost(p, () -> {});
 
-        DBImplementation.instance().getAllPosts((pList)->{data = pList;});
+//        DBImplementation.instance().getAllPosts((pList)->{data = pList;});
 
 //        adapter.setOnItemClickListener(new PostsListAdapter.OnItemClickListener() {
 //            @Override
@@ -62,11 +62,11 @@ public class HomePageFragment extends Fragment {
 
     void reloadData(){
 //        binding.progressBar.setVisibility(View.VISIBLE);
-        DBImplementation.instance().getAllPosts((pList)->{
-            data = pList;
-            adapter.setData(data);
+//        DBImplementation.instance().getAllPosts((pList)->{
+//            data = pList;
+//            adapter.setData(data);
 //            binding.progressBar.setVisibility(View.GONE);
-        });
+//        });
     }
 }
 
