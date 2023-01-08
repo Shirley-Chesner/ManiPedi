@@ -2,6 +2,7 @@ package com.example.manipedi.model;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import androidx.core.os.HandlerCompat;
 
@@ -15,7 +16,7 @@ public class DBImplementation {
     private final Executor executor = Executors.newSingleThreadExecutor();
     private final Handler mainHandler = HandlerCompat.createAsync(Looper.getMainLooper());
 
-//    private final AppLocalDbRepository localDB = AppLocalDB.getAppDB();
+    private final AppLocalDbRepository localDB = AppLocalDB.getAppDB();
 
     private DBImplementation() {}
 
@@ -30,34 +31,34 @@ public class DBImplementation {
     public interface GetAllPostsListener{
         void onComplete(List<Post> data);
     }
-//    public void getAllPosts(GetAllPostsListener callback) {
-//        executor.execute(()->{
-//            List<Post> data = localDB.postDao().getAll();
+    public void getAllPosts(GetAllPostsListener callback) {
+        executor.execute(()->{
+            List<Post> data = localDB.postDao().getAll();
 //            try {
 //                Thread.sleep(5000);
 //            } catch (InterruptedException e) {
 //                e.printStackTrace();
 //            }
-//            mainHandler.post(()->{
-//                callback.onComplete(data);
-//            });
-//        });
-//    }
+            mainHandler.post(()->{
+                callback.onComplete(data);
+            });
+        });
+    }
 
     public interface AddPostListener{
         void onComplete();
     }
-//    public void addPost(Post p, AddPostListener listener){
-//    executor.execute(()->{
-//        localDB.postDao().insertAll(p);
+    public void addPost(Post p, AddPostListener listener){
+    executor.execute(()->{
+        localDB.postDao().insertAll(p);
 //        try {
 //            Thread.sleep(5000);
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
-//        mainHandler.post(()->{
-//            listener.onComplete();
-//        });
-//    });
-//    }
+        mainHandler.post(()->{
+            listener.onComplete();
+        });
+    });
+    }
 }

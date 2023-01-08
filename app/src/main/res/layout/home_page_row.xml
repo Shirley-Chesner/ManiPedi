@@ -12,7 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        card_view:cardCornerRadius="16dp">
+        card_view:cardCornerRadius="16dp"
+        card_view:cardElevation="2dp"
+        card_view:cardBackgroundColor="@color/skyBlue">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -20,8 +22,8 @@
 
             <ImageView
                 android:id="@+id/owner_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="46dp"
+                android:layout_height="38dp"
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="4dp"
                 card_view:layout_constraintStart_toStartOf="parent"
@@ -37,55 +39,47 @@
                 card_view:layout_constraintStart_toEndOf="@+id/owner_icon"
                 card_view:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
-                android:id="@+id/description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_marginEnd="6dp"
-                android:layout_marginBottom="4dp"
-                android:ems="10"
-                android:gravity="start|top"
-                android:inputType="textMultiLine"
-                android:text="blah blah blah"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintHorizontal_bias="0.05"
-                card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/owner_location" />
-
-            <EditText
-                android:id="@+id/score_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="6dp"
-                android:ems="10"
-                android:inputType="number"
-                android:textSize="4sp"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent" />
-
             <TextView
                 android:id="@+id/score_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginStart="216dp"
+                android:layout_marginTop="16dp"
                 android:text="Score:"
-                card_view:layout_constraintEnd_toStartOf="@+id/score_number"
+                card_view:layout_constraintStart_toEndOf="@+id/owner_name"
                 card_view:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
+            <TextView
+                android:id="@+id/score_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                card_view:layout_constraintBaseline_toBaselineOf="@+id/score_text"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintHorizontal_bias="0.95"
+                card_view:layout_constraintStart_toEndOf="@+id/score_text" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginBottom="1dp"
+                android:text="TextView"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintHorizontal_bias="0.0"
+                card_view:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
                 android:id="@+id/owner_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_marginTop="4dp"
-                android:ems="10"
-                android:inputType="textPostalAddress"
-                android:text="location"
-                android:textSize="6sp"
-                card_view:layout_constraintStart_toStartOf="parent"
+                android:text="TextView"
+                card_view:layout_constraintBottom_toTopOf="@+id/description"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintHorizontal_bias="0.0"
+                card_view:layout_constraintStart_toEndOf="@+id/owner_icon"
                 card_view:layout_constraintTop_toBottomOf="@+id/owner_name" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

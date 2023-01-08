@@ -1,6 +1,7 @@
 package com.example.manipedi;
 
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.View;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -22,9 +23,9 @@ import java.util.List;
 class PostsListHolder extends RecyclerView.ViewHolder {
     TextView ownerName;
     ImageView ownerPic;
-    EditText description;
-    EditText score;
-    EditText location;
+    TextView description;
+    TextView score;
+    TextView location;
     List<Post> data;
 
     public PostsListHolder(@NonNull View itemView, PostsListAdapter.OnItemClickListener listener, List<Post> data) {
@@ -48,14 +49,13 @@ class PostsListHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Post p, int pos) throws IOException {
-        URL myUrl = new URL(p.avatarURL);
-        InputStream inputStream = (InputStream)myUrl.getContent();
-        Drawable drawable = Drawable.createFromStream(inputStream, null);
-
+//        URL myUrl = new URL(p.avatarURL);
+//        InputStream inputStream = (InputStream)myUrl.getContent();
+//        Drawable drawable = Drawable.createFromStream(inputStream, null);
         ownerName.setText(p.owner);
-        ownerPic.setImageDrawable(drawable);
+//        ownerPic.setImageDrawable(drawable);
         description.setText(p.description);
-        score.setText((int) p.score); // TODO: find out what to do about the float
+        score.setText(p.score); // TODO: find out what to do about the float
         location.setText(p.location);
 //        cb.setTag(pos);
     }
@@ -71,9 +71,25 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListHolder> {
     }
 
     public void setData(List<Post> data){
+//        clearItems();
+//        addItems(data);
         this.data = data;
         notifyDataSetChanged();
     }
+
+
+    public void addItems(List<Post> newItems)
+    {
+        this.data.addAll(newItems);
+        notifyDataSetChanged();
+    }
+
+    public void clearItems()
+    {
+        this.data.clear();
+        notifyDataSetChanged();
+    }
+
 
     public PostsListAdapter(LayoutInflater inflater, List<Post> data){
         this.inflater = inflater;

@@ -34,11 +34,20 @@ public class HomePageFragment extends Fragment {
         binding.PostsList.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new PostsListAdapter(getLayoutInflater(),data);
         binding.PostsList.setAdapter(adapter);
+        binding.PostsList.invalidate();
 
-        Post p = new Post("aaa", "avital", "space", 2, "save me", "");
-//        DBImplementation.instance().addPost(p, () -> {});
 
-//        DBImplementation.instance().getAllPosts((pList)->{data = pList;});
+        Post p = new Post("aaa", "avital", "space", "2", "save me", "");
+        DBImplementation.instance().addPost(p, () -> {});
+//        try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        reloadData();
+//        DBImplementation.instance().getAllPosts((pList)->{
+//            data = pList;
+//        });
 
 //        adapter.setOnItemClickListener(new PostsListAdapter.OnItemClickListener() {
 //            @Override
@@ -62,15 +71,17 @@ public class HomePageFragment extends Fragment {
 
     void reloadData(){
 //        binding.progressBar.setVisibility(View.VISIBLE);
-//        DBImplementation.instance().getAllPosts((pList)->{
-//            data = pList;
-//            adapter.setData(data);
+        DBImplementation.instance().getAllPosts((pList)->{
+            data = pList;
+            adapter.setData(data);
+//            binding.PostsList.invalidate();
+//            adapter.notifyItemRangeChanged(0, data.size());
 //            binding.progressBar.setVisibility(View.GONE);
-//        });
+        });
     }
 }
 
-    //    public static HomePageFragment newInstance(String param1, String param2) {
+//        public static HomePageFragment newInstance(String param1, String param2) {
 //        HomePageFragment fragment = new HomePageFragment();
 //        Bundle args = new Bundle();
 //        args.putString(ARG_PARAM1, param1);

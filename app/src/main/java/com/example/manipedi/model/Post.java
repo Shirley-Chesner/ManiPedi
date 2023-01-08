@@ -13,7 +13,7 @@ public class Post {
     public String id="";
     public String owner="";
     public String location="";
-    public float score = 0;
+    public String score = "";
     public String description="";
     public String avatarURL = "";
 //    public ArrayList<String> pictures = new ArrayList<>();
@@ -23,7 +23,7 @@ public class Post {
     public Post(@NonNull String id,
                 String owner,
                 String location,
-                float score,
+                String score,
                 String description,
                 String avatarURL
                 /*ArrayList<String> pictures*/) {
@@ -61,11 +61,11 @@ public class Post {
         this.location = location;
     }
 
-    public float getScore() {
+    public String getScore() {
         return score;
     }
 
-    public void setScore(float score) {
+    public void setScore(String score) {
         this.score = score;
     }
 
