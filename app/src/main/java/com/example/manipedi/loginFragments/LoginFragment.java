@@ -11,11 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.manipedi.MainActivity;
 import com.example.manipedi.R;
 
-import dataBases.UserAuthentication;
+import com.example.manipedi.firebase.UserAuthentication;
 
 public class LoginFragment extends Fragment {
 
@@ -34,7 +35,10 @@ public class LoginFragment extends Fragment {
         Button signInBtn = view.findViewById(R.id.loginFragment_SignInBtn);
 
         loginBtn.setOnClickListener(view1 -> {
-            if (!userAuthentication.isEmailAndPasswordValid(email, password)) return;
+            if (!userAuthentication.isEmailAndPasswordValid(email, password)) {
+                Toast.makeText(getContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
+                return;
+            };
 
             userAuthentication.login(email, password, user -> {
                 if (user != null) {

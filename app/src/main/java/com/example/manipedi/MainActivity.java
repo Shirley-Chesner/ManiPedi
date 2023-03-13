@@ -11,9 +11,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
+import android.widget.Toast;
 
-import dataBases.UserAuthentication;
+import com.example.manipedi.firebase.UserAuthentication;
 
 public class MainActivity extends AppCompatActivity {
     NavController navController;
@@ -29,9 +29,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController);
 
         mAuth = UserAuthentication.getInstance();
-
-//        BottomNavigationView navView = findViewById(R.id.main_bottomNavigationView);
-//        NavigationUI.setupWithNavController(navView,navController);
     }
 
     @Override
@@ -42,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
         } else {
+            Toast.makeText(this, "Authentication success.", Toast.LENGTH_SHORT).show();
             Log.d("TAG", "user " + mAuth.getUser().getEmail());
         }
     }

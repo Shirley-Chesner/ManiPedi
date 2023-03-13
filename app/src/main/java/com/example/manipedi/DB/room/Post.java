@@ -17,8 +17,8 @@ public class Post {
     public String description="";
     public String avatarURL = "";
 //    public ArrayList<String> pictures = new ArrayList<>();
-
-    public Post() {}
+//
+//    public Post() {}
 
     public Post(@NonNull String id,
                 String owner,

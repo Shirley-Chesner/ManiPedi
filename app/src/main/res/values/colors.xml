@@ -7,8 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="iconNotClicked">#008577</color>
-    <color name="iconClicked">#00574B</color>
-    <color name="skyBlue">#87CEEB</color>
-    <color name="menuBackground">#79b8f4</color>
+    <color name="iconNotClicked">#D8D8D8</color>
+    <color name="iconClicked">#D8D8D8</color>
+    <color name="skyBlue">#FF3700B3</color>
+    <color name="menuBackground">#FF6200EE</color>
 </resources>
