@@ -2,14 +2,14 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/home_btn"
+        android:id="@+id/homePageFragment"
         android:title=""
         android:checked="true"
         android:icon="@drawable/home_icon"
         android:orderInCategory="1"
         app:showAsAction="never"/>
     <item
-        android:id="@+id/search_btn"
+        android:id="@+id/searchPageFragment"
         android:title=""
         android:icon="@drawable/search_bar"
         android:orderInCategory="2"

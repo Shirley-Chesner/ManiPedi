@@ -1,4 +1,4 @@
-package com.example.manipedi;
+package com.example.manipedi.DB.room;
 
 import android.app.Application;
 import android.content.Context;

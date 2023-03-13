@@ -1,4 +1,4 @@
-package com.example.manipedi.model;
+package com.example.manipedi.DB.room;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;

@@ -1,8 +1,7 @@
-package com.example.manipedi.model;
+package com.example.manipedi.DB.room;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 
 import androidx.core.os.HandlerCompat;
 

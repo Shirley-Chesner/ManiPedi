@@ -1,19 +1,18 @@
-package com.example.manipedi;
+package com.example.manipedi.homePageFragment;
 
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.manipedi.DB.room.PostsListAdapter;
 import com.example.manipedi.databinding.FragmentHomePageBinding;
-import com.example.manipedi.model.DBImplementation;
-import com.example.manipedi.model.Post;
+import com.example.manipedi.DB.room.DBImplementation;
+import com.example.manipedi.DB.room.Post;
 
 import java.util.LinkedList;
 import java.util.List;
