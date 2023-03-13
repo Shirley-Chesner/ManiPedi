@@ -6,7 +6,16 @@
     app:startDestination="@id/homePageFragment">
     <fragment
         android:id="@+id/homePageFragment"
-        android:name="com.example.manipedi.HomePageFragment"
+        android:name="com.example.manipedi.homePageFragment.HomePageFragment"
         android:label="fragment_home_page"
-        tools:layout="@layout/fragment_home_page" />
+        tools:layout="@layout/fragment_home_page" >
+        <action
+            android:id="@+id/going_to_search_page"
+            app:destination="@id/searchPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchPageFragment"
+        android:name="com.example.manipedi.searchPage.SearchPageFragment"
+        android:label="fragment_search_page"
+        tools:layout="@layout/fragment_search_page" />
 </navigation>

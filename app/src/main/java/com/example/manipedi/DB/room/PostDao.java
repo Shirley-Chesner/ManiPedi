@@ -1,4 +1,4 @@
-package com.example.manipedi.model;
+package com.example.manipedi.DB.room;
 
 import androidx.room.Dao;
 import androidx.room.Delete;

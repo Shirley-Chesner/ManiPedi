@@ -1,23 +1,17 @@
-package com.example.manipedi;
+package com.example.manipedi.DB.room;
 
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.View;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.manipedi.model.Post;
+import com.example.manipedi.R;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 
 class PostsListHolder extends RecyclerView.ViewHolder {
@@ -71,10 +65,8 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListHolder> {
     }
 
     public void setData(List<Post> data){
-//        clearItems();
-//        addItems(data);
-        this.data = data;
-        notifyDataSetChanged();
+        clearItems();
+        addItems(data);
     }
 
 
