@@ -9,10 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.manipedi.DB.room.PostsListAdapter;
+import com.example.manipedi.DB.room.Adapter.PostsListAdapter;
+import com.example.manipedi.DB.room.Adapter.UsersListAdapter;
 import com.example.manipedi.databinding.FragmentHomePageBinding;
 import com.example.manipedi.DB.room.DBImplementation;
-import com.example.manipedi.DB.room.Post;
+import com.example.manipedi.DB.room.Schema.Post;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class HomePageFragment extends Fragment {
 
         binding.PostsList.setHasFixedSize(true);
         binding.PostsList.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new PostsListAdapter(getLayoutInflater(),data);
+        adapter = new PostsListAdapter(getLayoutInflater(), data);
         binding.PostsList.setAdapter(adapter);
         binding.PostsList.invalidate();
 

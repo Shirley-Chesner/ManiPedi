@@ -1,4 +1,4 @@
-package com.example.manipedi.DB.room;
+package com.example.manipedi.DB.room.Adapter;
 
 import android.view.View;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.manipedi.DB.room.Schema.Post;
 import com.example.manipedi.R;
 
 import java.io.IOException;
@@ -22,7 +23,7 @@ class PostsListHolder extends RecyclerView.ViewHolder {
     TextView location;
     List<Post> data;
 
-    public PostsListHolder(@NonNull View itemView, PostsListAdapter.OnItemClickListener listener, List<Post> data) {
+    public PostsListHolder(@NonNull View itemView, UsersListAdapter.OnItemClickListener listener, List<Post> data) {
         super(itemView);
         this.ownerName = itemView.findViewById(R.id.owner_name);
         this.ownerPic = itemView.findViewById(R.id.owner_icon);
@@ -88,12 +89,11 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListHolder> {
         this.data = data;
     }
 
-
     @NonNull
     @Override
     public PostsListHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.home_page_row,parent,false);
-        return new PostsListHolder(view,listener, data);
+        return new PostsListHolder(view, (UsersListAdapter.OnItemClickListener) listener, data);
     }
 
     @Override

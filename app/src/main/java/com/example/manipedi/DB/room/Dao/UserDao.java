@@ -1,10 +1,12 @@
-package com.example.manipedi.DB.room;
+package com.example.manipedi.DB.room.Dao;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
+
+import com.example.manipedi.DB.room.Schema.User;
 
 import java.util.List;
 

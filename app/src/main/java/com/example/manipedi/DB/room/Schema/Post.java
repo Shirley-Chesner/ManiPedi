@@ -1,4 +1,4 @@
-package com.example.manipedi.DB.room;
+package com.example.manipedi.DB.room.Schema;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
@@ -16,9 +16,7 @@ public class Post {
     public String score = "";
     public String description="";
     public String avatarURL = "";
-//    public ArrayList<String> pictures = new ArrayList<>();
-//
-//    public Post() {}
+
 
     public Post(@NonNull String id,
                 String owner,

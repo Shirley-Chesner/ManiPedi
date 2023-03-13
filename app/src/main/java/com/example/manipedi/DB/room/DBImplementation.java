@@ -5,6 +5,9 @@ import android.os.Looper;
 
 import androidx.core.os.HandlerCompat;
 
+import com.example.manipedi.DB.room.Schema.Post;
+import com.example.manipedi.DB.room.Schema.User;
+
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -43,6 +46,17 @@ public class DBImplementation {
             });
         });
     }
+
+//    public void getAllUsers(GetAllPostsListener callback) {
+//        executor.execute(()->{
+//            List<User> data = localDB.userDao().getAll();
+//            mainHandler.post(()->{
+//                callback.onComplete(data);
+//            });
+//        });
+//    }
+
+
 
     public interface AddPostListener{
         void onComplete();
