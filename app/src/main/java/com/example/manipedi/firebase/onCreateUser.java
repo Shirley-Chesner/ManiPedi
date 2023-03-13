@@ -1,4 +1,4 @@
-package dataBases;
+package com.example.manipedi.firebase;
 
 import com.google.firebase.auth.FirebaseUser;
 

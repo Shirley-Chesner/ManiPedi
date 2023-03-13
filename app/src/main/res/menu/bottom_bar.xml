@@ -15,12 +15,6 @@
         android:orderInCategory="2"
         app:showAsAction="never"/>
     <item
-        android:id="@+id/chat_btn"
-        android:title=""
-        android:icon="@drawable/messages_icon"
-        android:orderInCategory="3"
-        app:showAsAction="never"/>
-    <item
         android:id="@+id/profile_btn"
         android:title=""
         android:icon="@drawable/user_icon"

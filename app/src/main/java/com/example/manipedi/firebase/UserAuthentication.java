@@ -1,4 +1,4 @@
-package dataBases;
+package com.example.manipedi.firebase;
 
 import android.util.Log;
 import android.widget.EditText;

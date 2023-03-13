@@ -15,7 +15,7 @@ import android.widget.EditText;
 import com.example.manipedi.MainActivity;
 import com.example.manipedi.R;
 
-import dataBases.UserAuthentication;
+import com.example.manipedi.firebase.UserAuthentication;
 
 /**
  * A simple {@link Fragment} subclass.
