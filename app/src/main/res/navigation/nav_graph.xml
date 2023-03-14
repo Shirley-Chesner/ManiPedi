@@ -12,10 +12,18 @@
         <action
             android:id="@+id/going_to_search_page"
             app:destination="@id/searchPageFragment" />
+        <action
+            android:id="@+id/action_homePageFragment_to_postProfile"
+            app:destination="@id/postProfile" />
     </fragment>
     <fragment
         android:id="@+id/searchPageFragment"
         android:name="com.example.manipedi.searchPage.SearchPageFragment"
         android:label="fragment_search_page"
         tools:layout="@layout/fragment_search_page" />
+    <fragment
+        android:id="@+id/postProfile"
+        android:name="com.example.manipedi.homePageFragment.PostProfile"
+        android:label="fragment_post_profile"
+        tools:layout="@layout/fragment_post_profile" />
 </navigation>

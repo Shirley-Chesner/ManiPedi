@@ -23,7 +23,7 @@ class PostsListHolder extends RecyclerView.ViewHolder {
     TextView location;
     List<Post> data;
 
-    public PostsListHolder(@NonNull View itemView, UsersListAdapter.OnItemClickListener listener, List<Post> data) {
+    public PostsListHolder(@NonNull View itemView, PostsListAdapter.OnItemClickListener listener, List<Post> data) {
         super(itemView);
         this.ownerName = itemView.findViewById(R.id.owner_name);
         this.ownerPic = itemView.findViewById(R.id.owner_icon);
@@ -61,8 +61,12 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListHolder> {
     LayoutInflater inflater;
     List<Post> data;
 
-    public interface OnItemClickListener{
+    public static interface OnItemClickListener{
         void onItemClick(int pos);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.listener = listener;
     }
 
     public void setData(List<Post> data){
@@ -92,8 +96,8 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListHolder> {
     @NonNull
     @Override
     public PostsListHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.home_page_row,parent,false);
-        return new PostsListHolder(view, (UsersListAdapter.OnItemClickListener) listener, data);
+        View view = inflater.inflate(R.layout.home_page_row, parent,false);
+        return new PostsListHolder(view, listener, data);
     }
 
     @Override
@@ -109,9 +113,5 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListHolder> {
     @Override
     public int getItemCount() {
         return data.size();
-    }
-
-    void setOnItemClickListener(OnItemClickListener listener){
-        this.listener = listener;
     }
 }
