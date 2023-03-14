@@ -1,16 +1,25 @@
 package com.example.manipedi.homePageFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
 
 import com.example.manipedi.DB.room.Adapter.PostsListAdapter;
 import com.example.manipedi.DB.room.Adapter.UsersListAdapter;
+import com.example.manipedi.R;
 import com.example.manipedi.databinding.FragmentHomePageBinding;
 import com.example.manipedi.DB.room.DBImplementation;
 import com.example.manipedi.DB.room.Schema.Post;
@@ -39,27 +48,24 @@ public class HomePageFragment extends Fragment {
 
         Post p = new Post("aaa", "avital", "space", "2", "save me", "");
         DBImplementation.instance().addPost(p, () -> {});
-//        try {
-//            Thread.sleep(5000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
         reloadData();
+
+        CardView allPostsList = view.findViewById(R.id.card_view);
+//        allPostsList.setOnClickListener(v -> {
+//            Log.d("TAG", "Row was clicked ");
+//        });
+//
 //        DBImplementation.instance().getAllPosts((pList)->{
 //            data = pList;
 //        });
 
-//        adapter.setOnItemClickListener(new PostsListAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(int pos) {
-//                Log.d("TAG", "Row was clicked " + pos);
-//                Post st = data.get(pos);
-//                HomePageFragmentDirections.ActionStudentsListFragmentToBlueFragment action = HomePageFragmentDirections.actionStudentsListFragmentToBlueFragment(st.name);
-//                Navigation.findNavController(view).navigate(action);
-//            }
-//        });
 
-
+        adapter.setOnItemClickListener(pos -> {
+            Log.d("HELPME", "Row was clicked " + pos);
+            Post st = data.get(pos);
+            @NonNull NavDirections action = HomePageFragmentDirections.actionHomePageFragmentToPostProfile();
+            Navigation.findNavController(view).navigate(action);
+        });
         return view;
     }
 

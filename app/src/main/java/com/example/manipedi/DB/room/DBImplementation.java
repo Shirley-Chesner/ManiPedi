@@ -36,6 +36,9 @@ public class DBImplementation {
 
     public interface GetAllPostsListener{
         void onComplete(List<Post> data);
+    }
+
+    public interface  GetSpecificPostListener{
         void onComplete(Post data);
     }
 
@@ -49,7 +52,7 @@ public class DBImplementation {
         });
     }
 
-    public void getSpecificPostOfUser(GetAllPostsListener callback, String id) {
+    public void getSpecificPostOfUser(GetSpecificPostListener callback, String id) {
         executor.execute(()->{
             Post data = localDB.postDao().getPostById(id);
             mainHandler.post(()->{
