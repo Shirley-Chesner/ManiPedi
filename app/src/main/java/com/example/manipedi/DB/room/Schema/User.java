@@ -1,18 +1,10 @@
-package com.example.manipedi.DB.room;
-
-import android.content.Context;
-import android.content.SharedPreferences;
+package com.example.manipedi.DB.room.Schema;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-//import com.example.be_my_guest.MyApplication;
-//import com.google.firebase.Timestamp;
-//import com.google.firebase.firestore.FieldValue;
-
 import java.io.Serializable;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,9 +17,6 @@ public class User implements Serializable {
     private String firstName;
     private String lastName;
     private String email;
-    private String phoneNumber;
-    private Date birthDate;
-    private Long lastUpdated;
     private String photoUrl;
 
     public static final String COLLECTION = "Users";
@@ -35,10 +24,6 @@ public class User implements Serializable {
     public static final String FIRST_NAME = "firstName";
     public static final String LAST_NAME = "lastName";
     public static final String EMAIL = "email";
-    public static final String PHONE = "phone";
-    public static final String BIRTH_DATE = "birthDate";
-    public static final String LAST_UPDATED = "lastUpdated";
-    public static final String LOCAL_LAST_UPDATED = "users_local_last_update";
     public static final String PHOTO_URL = "photoUrl";
 
     public User(@NonNull String id, String firstName, String lastName, String email, String photoUrl) {
@@ -49,16 +34,13 @@ public class User implements Serializable {
         this.photoUrl = photoUrl;
     }
 
-//    public User(User user) {
-//        this.id = user.getId();
-//        this.firstName = user.getFirstName();
-//        this.lastName = user.getLastName();
-//        this.email = user.getEmail();
-//        this.phoneNumber = user.getPhoneNumber();
-//        this.birthDate = user.getBirthDate();
-//        this.photoUrl = user.getPhotoUrl();
-//        this.lastUpdated = user.getLastUpdated();
-//    }
+    public User(User user) {
+        this.id = user.getId();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.email = user.getEmail();
+        this.photoUrl = user.getPhotoUrl();
+    }
 
     @NonNull
     public String getId() {
@@ -93,30 +75,6 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public Long getLastUpdated() {
-        return lastUpdated;
-    }
-
-    public void setLastUpdated(Long lastUpdated) {
-        this.lastUpdated = lastUpdated;
-    }
-
     public String getPhotoUrl() {
         return photoUrl;
     }
@@ -143,9 +101,6 @@ public class User implements Serializable {
         json.put(FIRST_NAME, getFirstName());
         json.put(LAST_NAME, getLastName());
         json.put(EMAIL, getEmail());
-        json.put(PHONE, getPhoneNumber());
-        json.put(BIRTH_DATE, getBirthDate());
-//        json.put(LAST_UPDATED, FieldValue.serverTimestamp());
         json.put(PHOTO_URL, getPhotoUrl());
 
         return json;
