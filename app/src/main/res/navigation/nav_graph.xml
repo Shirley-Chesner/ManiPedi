@@ -7,23 +7,23 @@
     <fragment
         android:id="@+id/homePageFragment"
         android:name="com.example.manipedi.homePageFragment.HomePageFragment"
-        android:label="fragment_home_page"
+        android:label="ManiPedi home page"
         tools:layout="@layout/fragment_home_page" >
         <action
             android:id="@+id/going_to_search_page"
             app:destination="@id/searchPageFragment" />
         <action
             android:id="@+id/action_homePageFragment_to_postProfile"
-            app:destination="@id/postProfile" />
+            app:destination="@id/userPageFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchPageFragment"
         android:name="com.example.manipedi.searchPage.SearchPageFragment"
-        android:label="fragment_search_page"
+        android:label="ManiPedi Search page"
         tools:layout="@layout/fragment_search_page" />
     <fragment
-        android:id="@+id/postProfile"
-        android:name="com.example.manipedi.homePageFragment.PostProfile"
-        android:label="fragment_post_profile"
-        tools:layout="@layout/fragment_post_profile" />
+        android:id="@+id/userPageFragment"
+        android:name="com.example.manipedi.userPage.UserPageFragment"
+        android:label="ManiPedi User page"
+        tools:layout="@layout/fragment_user_page" />
 </navigation>
