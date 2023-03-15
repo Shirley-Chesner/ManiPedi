@@ -5,38 +5,53 @@
     android:id="@+id/te"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/selectableItemBackground">
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true">
     <!-- A CardView that contains a TextView -->
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:clickable="true"
-        card_view:cardBackgroundColor="@color/palePurple"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="6dp"
+        android:clickable="false"
+        android:paddingStart="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        card_view:cardBackgroundColor="@color/smokeyWhite"
         card_view:cardCornerRadius="16dp"
         card_view:cardElevation="2dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:backgroundTintMode="add"
+            android:clickable="true"
+            android:hapticFeedbackEnabled="false"
+            android:paddingLeft="8dp"
+            android:paddingTop="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp">
 
             <ImageView
                 android:id="@+id/owner_icon"
-                android:layout_width="46dp"
-                android:layout_height="38dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="4dp"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent"
-                card_view:srcCompat="@drawable/user_icon" />
+                card_view:srcCompat="@drawable/user" />
 
             <TextView
                 android:id="@+id/owner_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="10dp"
                 android:text="name"
                 android:textSize="24sp"
                 card_view:layout_constraintStart_toEndOf="@+id/owner_icon"
@@ -46,19 +61,21 @@
                 android:id="@+id/score_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="216dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="41dp"
                 android:text="Score:"
                 android:textSize="16sp"
-                card_view:layout_constraintEnd_toStartOf="@+id/score_number"
-                card_view:layout_constraintHorizontal_bias="0.51"
-                card_view:layout_constraintStart_toEndOf="@+id/owner_name"
-                card_view:layout_constraintTop_toTopOf="parent" />
+                card_view:layout_constraintBottom_toTopOf="@+id/description"
+                card_view:layout_constraintEnd_toEndOf="@+id/description"
+                card_view:layout_constraintTop_toTopOf="parent"
+                card_view:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/score_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
                 android:text="TextView"
                 android:textSize="16sp"
                 card_view:layout_constraintBaseline_toBaselineOf="@+id/score_text"
@@ -70,13 +87,15 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
-                android:layout_marginBottom="1dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="10dp"
                 android:text="TextView"
                 android:textSize="16sp"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintHorizontal_bias="0.0"
-                card_view:layout_constraintStart_toStartOf="parent" />
+                card_view:layout_constraintHorizontal_bias="0.312"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/owner_location" />
 
             <TextView
                 android:id="@+id/owner_location"
@@ -84,9 +103,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:text="TextView"
-                card_view:layout_constraintBottom_toTopOf="@+id/description"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintHorizontal_bias="0.0"
                 card_view:layout_constraintStart_toEndOf="@+id/owner_icon"
                 card_view:layout_constraintTop_toBottomOf="@+id/owner_name" />
 
