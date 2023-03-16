@@ -16,9 +16,14 @@ import android.widget.Toast;
 import com.example.manipedi.MainActivity;
 import com.example.manipedi.R;
 
-import com.example.manipedi.firebase.UserAuthentication;
+import com.example.manipedi.DB.firebase.UserAuthentication;
 
 public class LoginFragment extends Fragment {
+
+    private EditText email;
+    private EditText password;
+    private Button loginBtn;
+    private Button signInBtn;
 
     public LoginFragment() {}
 
@@ -29,14 +34,14 @@ public class LoginFragment extends Fragment {
         LoginFragmentManager fragmentManager = new LoginFragmentManager(getActivity());
         UserAuthentication userAuthentication = UserAuthentication.getInstance();
 
-        EditText email = view.findViewById(R.id.loginFragment_EmailInput);
-        EditText password = view.findViewById(R.id.loginFragment_passwordInput);
-        Button loginBtn = view.findViewById(R.id.loginFragment_loginBtn);
-        Button signInBtn = view.findViewById(R.id.loginFragment_SignInBtn);
+        email = view.findViewById(R.id.loginFragment_EmailInput);
+        password = view.findViewById(R.id.loginFragment_passwordInput);
+        loginBtn = view.findViewById(R.id.loginFragment_loginBtn);
+        signInBtn = view.findViewById(R.id.loginFragment_SignInBtn);
 
         loginBtn.setOnClickListener(view1 -> {
             if (!userAuthentication.isEmailAndPasswordValid(email, password)) {
-                Toast.makeText(getContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Email or password is invalid", Toast.LENGTH_SHORT).show();
                 return;
             };
 

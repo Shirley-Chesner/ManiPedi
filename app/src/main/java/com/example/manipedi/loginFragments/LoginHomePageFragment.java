@@ -11,11 +11,6 @@ import android.widget.Button;
 
 import com.example.manipedi.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link LoginHomePageFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class LoginHomePageFragment extends Fragment {
 
     public LoginHomePageFragment() { }
