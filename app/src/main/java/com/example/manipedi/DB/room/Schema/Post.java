@@ -1,10 +1,15 @@
 package com.example.manipedi.DB.room.Schema;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 @Entity
 public class Post {
@@ -32,6 +37,16 @@ public class Post {
         this.description = description;
         this.avatarURL = avatarURL;
 //        this.pictures = pictures;
+    }
+
+
+    public Post(Map<String, Object> obj) {
+        this((String) obj.get("id"),
+                (String) obj.get("user"),
+                "",
+                (String) obj.get("score"),
+                (String) obj.get("description"),
+                (String) obj.get("image"));
     }
 
     @NonNull
@@ -81,6 +96,17 @@ public class Post {
 
     public void setAvatarURL(String avatarURL) {
         this.avatarURL = avatarURL;
+    }
+
+    public Map<String, Object> toObject() {
+        Map<String, Object> obj = new HashMap<>();
+        obj.put("id", getId());
+        obj.put("user", getOwner());
+        obj.put("image", getAvatarURL());
+        obj.put("description", getDescription());
+        obj.put("score", getScore());
+
+        return obj;
     }
 
 //    public ArrayList<String> getPictures() {

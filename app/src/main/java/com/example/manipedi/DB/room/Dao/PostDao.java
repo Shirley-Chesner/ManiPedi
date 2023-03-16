@@ -5,8 +5,10 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Transaction;
 
 import com.example.manipedi.DB.room.Schema.Post;
+import com.example.manipedi.DB.room.Schema.PostWithUser;
 
 import java.util.List;
 
@@ -19,13 +21,21 @@ public interface PostDao {
     Post getPostById(String postId);
 
     @Query("select * from Post where owner = :ownerName")
-    Post getPostsByOwner(String ownerName);
+    Post getPostsByUser(String ownerName);
 
     @Query("select * from Post where location = :location")
     Post getPostsByLocation(String location);
 
     @Query("select * from Post where score = :score")
     Post getPostsByRating(float score);
+
+    @Transaction
+    @Query("SELECT * FROM Post")
+    List<PostWithUser> getPostsWithUser();
+
+    @Transaction
+    @Query("SELECT * FROM Post WHERE owner=:userId")
+    List<Post> getPostsByUserId(String userId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(Post... posts);

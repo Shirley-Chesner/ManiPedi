@@ -1,5 +1,7 @@
 package com.example.manipedi.DB.room.Schema;
 
+import android.widget.EditText;
+
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -31,6 +33,12 @@ public class User implements Serializable {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.photoUrl = photoUrl;
+    }
+
+    public User(@NonNull String id, EditText email, String photoUrl) {
+        this.id = id;
+        this.email = email.getText().toString();
         this.photoUrl = photoUrl;
     }
 

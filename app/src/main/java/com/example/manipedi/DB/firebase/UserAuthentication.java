@@ -1,11 +1,12 @@
-package com.example.manipedi.firebase;
+package com.example.manipedi.DB.firebase;
 
-import android.util.Log;
 import android.widget.EditText;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Objects;
 
 public class UserAuthentication {
     private static UserAuthentication instance;
@@ -24,6 +25,14 @@ public class UserAuthentication {
 
     public FirebaseUser getUser() {
         return mAuth.getCurrentUser();
+    }
+
+    public String getUserUid() {
+        FirebaseUser user = getUser();
+        if (user != null) {
+            return Objects.requireNonNull(user).getUid();
+        }
+        return null;
     }
 
     public boolean isEmailAndPasswordValid(EditText email, EditText password) {
@@ -60,15 +69,9 @@ public class UserAuthentication {
 
     void onCompleteListener(Task task, onCreateUser onCreateUser) {
         if (task.isSuccessful()) {
-            // Sign in success, update UI with the signed-in user's information
-            Log.d("TAG", "createUserWithEmail:success");
             FirebaseUser user = mAuth.getCurrentUser();
             onCreateUser.action(user);
         } else {
-            // If sign in fails, display a message to the user.
-            Log.w("TAG", "createUserWithEmail:failure", task.getException());
-//                        Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
-//                                Toast.LENGTH_SHORT).show();
             onCreateUser.action(null);
         }
     }
