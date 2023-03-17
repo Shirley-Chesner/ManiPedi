@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.manipedi.DB.UserModel;
+import com.example.manipedi.DB.room.ManiPediApplication;
 import com.example.manipedi.MainActivity;
 import com.example.manipedi.R;
 
@@ -47,10 +49,10 @@ public class LoginFragment extends Fragment {
 
             userAuthentication.login(email, password, user -> {
                 if (user != null) {
-                    Intent intent = new Intent(getActivity(), MainActivity.class);
-                    startActivity(intent);
+                    UserModel.instance().setSignedUser();
+                    startActivity(new Intent(ManiPediApplication.getMyContext(), MainActivity.class));
                 } else {
-                    Log.d("TAG", "user not created");
+                    Toast.makeText(getContext(), "Firebase Authentication failed.", Toast.LENGTH_SHORT).show();
                 }
             });
         });

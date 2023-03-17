@@ -6,6 +6,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
+import androidx.room.Update;
 
 import com.example.manipedi.DB.room.Schema.Post;
 import com.example.manipedi.DB.room.Schema.PostWithUser;
@@ -45,4 +46,7 @@ public interface PostDao {
 
     @Delete
     void delete(Post post);
+
+    @Update
+    void update(Post post);
 }

@@ -23,6 +23,8 @@ public class UserAuthentication {
         return instance;
     }
 
+    public FirebaseAuth getAuth() { return mAuth; }
+
     public FirebaseUser getUser() {
         return mAuth.getCurrentUser();
     }

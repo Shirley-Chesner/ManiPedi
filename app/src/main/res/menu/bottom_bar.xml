@@ -4,20 +4,26 @@
     android:id="@+id/bottom_nav">
     <item
         android:id="@+id/homePageFragment"
-        android:title=""
+        android:title="@string/home_page_title"
         android:checked="true"
         android:icon="@drawable/home_icon"
         android:orderInCategory="1"
         app:showAsAction="never"/>
+    <item android:id="@+id/createPostFragment"
+        android:title="@string/create_post_title"
+        android:checked="true"
+        android:icon="@drawable/create_post"
+        android:orderInCategory="2"
+        app:showAsAction="never" />
     <item
         android:id="@+id/searchPageFragment"
-        android:title=""
+        android:title="@string/search_page_title"
         android:icon="@drawable/search_bar"
-        android:orderInCategory="2"
+        android:orderInCategory="3"
         app:showAsAction="never"/>
     <item
         android:id="@+id/userPageFragment"
-        android:title=""
+        android:title="@string/user_page_title"
         android:icon="@drawable/user_icon"
         android:orderInCategory="4"
         app:showAsAction="never" />

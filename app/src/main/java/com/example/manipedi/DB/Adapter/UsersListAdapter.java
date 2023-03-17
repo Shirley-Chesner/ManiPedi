@@ -1,4 +1,4 @@
-package com.example.manipedi.DB.room.Adapter;
+package com.example.manipedi.DB.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;

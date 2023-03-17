@@ -1,4 +1,4 @@
-package com.example.manipedi.DB.room;
+package com.example.manipedi.DB;
 
 public enum LoadingState {
     LOADING,

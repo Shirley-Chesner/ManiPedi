@@ -2,6 +2,7 @@ package com.example.manipedi.DB.firebase;
 
 import com.example.manipedi.DB.Listener;
 import com.example.manipedi.DB.room.Schema.User;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -11,17 +12,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class UserFirebase extends FirebaseModel {
+public class UserFirebaseModel extends FirebaseModel {
     private FirebaseAuth mAuth;
 
-    public UserFirebase() {
+    public UserFirebaseModel() {
         super();
         mAuth = FirebaseAuth.getInstance();
     }
 
-    public void getAllUsersSince(Listener<List<User>> callback) { //Long since,
+    public void getAllUsersSince(Long since, Listener<List<User>> callback) {
         db.collection(User.COLLECTION)
-//                .whereGreaterThanOrEqualTo(User.LAST_UPDATED, new Timestamp(since, 0))
+                .whereGreaterThanOrEqualTo(User.LAST_UPDATED, new Timestamp(since, 0))
                 .get()
                 .addOnCompleteListener(task -> {
                     List<User> list = new LinkedList<>();

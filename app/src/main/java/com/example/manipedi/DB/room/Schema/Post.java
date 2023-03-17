@@ -7,7 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.util.ArrayList;
+import com.example.manipedi.DB.room.ManiPediApplication;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +21,11 @@ public class Post {
     public String location="";
     public String score = "";
     public String description="";
-    public String avatarURL = "";
+    public String image = "";
+    private Long lastUpdated;
+
+    public static final String LAST_UPDATED = "lastUpdated";
+    public static final String LOCAL_LAST_UPDATED = "users_local_last_update";
 
 
     public Post(@NonNull String id,
@@ -28,17 +33,14 @@ public class Post {
                 String location,
                 String score,
                 String description,
-                String avatarURL
-                /*ArrayList<String> pictures*/) {
+                String image) {
         this.id = id;
         this.owner = owner;
         this.location = location;
         this.score = score;
         this.description = description;
-        this.avatarURL = avatarURL;
-//        this.pictures = pictures;
+        this.image = image;
     }
-
 
     public Post(Map<String, Object> obj) {
         this((String) obj.get("id"),
@@ -90,30 +92,42 @@ public class Post {
         this.description = description;
     }
 
-    public String getAvatarURL() {
-        return avatarURL;
+    public String getImage() {
+        return image;
     }
 
-    public void setAvatarURL(String avatarURL) {
-        this.avatarURL = avatarURL;
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Long getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(Long lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 
     public Map<String, Object> toObject() {
         Map<String, Object> obj = new HashMap<>();
         obj.put("id", getId());
         obj.put("user", getOwner());
-        obj.put("image", getAvatarURL());
+        obj.put("image", getImage());
         obj.put("description", getDescription());
         obj.put("score", getScore());
 
         return obj;
     }
 
-//    public ArrayList<String> getPictures() {
-//        return pictures;
-//    }
-//
-//    public void setPictures(ArrayList<String> pictures) {
-//        this.pictures = pictures;
-//    }
+    public static Long getLocalLastUpdate() {
+        SharedPreferences sharedPref = ManiPediApplication.getMyContext().getSharedPreferences("TAG", Context.MODE_PRIVATE);
+        return sharedPref.getLong(LOCAL_LAST_UPDATED, 0);
+    }
+
+    public static void setLocalLastUpdate(Long time) {
+        SharedPreferences sharedPref = ManiPediApplication.getMyContext().getSharedPreferences("TAG", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putLong(LOCAL_LAST_UPDATED,time);
+        editor.commit();
+    }
 }

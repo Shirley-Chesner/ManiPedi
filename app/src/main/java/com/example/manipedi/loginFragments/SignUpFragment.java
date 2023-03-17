@@ -9,6 +9,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +19,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.manipedi.DB.firebase.UserFirebase;
-import com.example.manipedi.DB.room.DBImplementation;
+import com.example.manipedi.DB.UserModel;
+import com.example.manipedi.DB.firebase.UserFirebaseModel;
+import com.example.manipedi.DB.room.ManiPediApplication;
 import com.example.manipedi.DB.room.Schema.User;
 import com.example.manipedi.MainActivity;
 import com.example.manipedi.R;
@@ -98,8 +100,8 @@ public class SignUpFragment extends Fragment {
         progressIndicator.show();
 
         if (!userAuthentication.isEmailAndPasswordValid(email, password)) {
-            Toast.makeText(getContext(), "Email or password is invalid", Toast.LENGTH_SHORT).show();
             progressIndicator.hide();
+            Toast.makeText(getContext(), "Email or password is invalid", Toast.LENGTH_SHORT).show();
             return;
         };
 
@@ -111,14 +113,17 @@ public class SignUpFragment extends Fragment {
             }
 
             User user = new User(firebaseUser.getUid(), email, "");
-            UserFirebase userModal = new UserFirebase();
-            userModal.uploadImage("userImage", getPhoto(), url -> {
+            UserFirebaseModel userModal = new UserFirebaseModel();
+            userModal.uploadImage(user.getEmail(), getPhoto(), url -> {
                 if (url != null) user.setPhotoUrl(url);
 
-                DBImplementation.instance().addUser(user, (u) -> {});
+                UserModel.instance().addUser(user, (u) -> {});
             });
 
-            startActivity(new Intent(getActivity(), MainActivity.class));
+            Log.d("SHIRELY", user == null ? "user is null in login": user.getEmail());
+            UserModel.instance().setSignedUser();
+
+            startActivity(new Intent(ManiPediApplication.getMyContext(), MainActivity.class));
         });
     }
 }

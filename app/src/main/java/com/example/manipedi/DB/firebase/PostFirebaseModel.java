@@ -2,6 +2,7 @@ package com.example.manipedi.DB.firebase;
 
 import com.example.manipedi.DB.Listener;
 import com.example.manipedi.DB.room.Schema.Post;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -9,16 +10,16 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-public class FirebasePost extends FirebaseModel {
+public class PostFirebaseModel extends FirebaseModel {
     private final String COLLECTION_NAME = "Posts";
 
-    public FirebasePost() {
+    public PostFirebaseModel() {
         super();
     }
 
-    public void getAllPostsSince(Listener<List<Post>> callback) { //Long since,
+    public void getAllPostsSince(Long since, Listener<List<Post>> callback) {
         db.collection(COLLECTION_NAME)
-//                .whereGreaterThanOrEqualTo(Post.LAST_UPDATED, new Timestamp(since, 0))
+                .whereGreaterThanOrEqualTo(Post.LAST_UPDATED, new Timestamp(since, 0))
                 .get()
                 .addOnCompleteListener(task -> {
                     List<Post> list = new LinkedList<>();

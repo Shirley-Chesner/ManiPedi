@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "362889606511",
-    "project_id": "manipedi-d5fe6",
-    "storage_bucket": "manipedi-d5fe6.appspot.com"
+    "project_number": "667356356556",
+    "project_id": "manipadi2",
+    "storage_bucket": "manipadi2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:362889606511:android:21d36032c95e615599a49a",
+        "mobilesdk_app_id": "1:667356356556:android:c27396ea4b6165c2fc0769",
         "android_client_info": {
           "package_name": "com.example.manipedi"
         }
       },
       "oauth_client": [
         {
-          "client_id": "362889606511-aq5hbstb78ilvlfia51mtqi75h2cn2ej.apps.googleusercontent.com",
+          "client_id": "667356356556-nn209mflj17muev55ghj9flgmcdtuigg.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC8CQOls0sV9ofMnPJlHVEUcDtpWuD9fH8"
+          "current_key": "AIzaSyASnIu9gme4VK68g9a_FhTM2fYVoOCsXb4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "362889606511-aq5hbstb78ilvlfia51mtqi75h2cn2ej.apps.googleusercontent.com",
+              "client_id": "667356356556-nn209mflj17muev55ghj9flgmcdtuigg.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

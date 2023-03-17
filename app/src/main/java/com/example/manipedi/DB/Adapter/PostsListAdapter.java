@@ -1,4 +1,4 @@
-package com.example.manipedi.DB.room.Adapter;
+package com.example.manipedi.DB.Adapter;
 
 import android.view.View;
 import android.view.LayoutInflater;
@@ -25,11 +25,11 @@ class PostsListHolder extends RecyclerView.ViewHolder {
 
     public PostsListHolder(@NonNull View itemView, PostsListAdapter.OnItemClickListener listener, List<Post> data) {
         super(itemView);
-        this.ownerName = itemView.findViewById(R.id.owner_name);
-        this.ownerPic = itemView.findViewById(R.id.owner_icon);
-        this.description = itemView.findViewById(R.id.description);
-        this.score = itemView.findViewById(R.id.score_number);
-        this.location = itemView.findViewById(R.id.owner_location);
+        this.ownerName = itemView.findViewById(R.id.post_user_name);
+        this.ownerPic = itemView.findViewById(R.id.post_user_image);
+        this.description = itemView.findViewById(R.id.user_post_description);
+        this.score = itemView.findViewById(R.id.user_score_number);
+        this.location = itemView.findViewById(R.id.user_post_location);
         this.data = data;
 
         // Add onClick for showing pictures

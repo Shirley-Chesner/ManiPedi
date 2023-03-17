@@ -17,9 +17,8 @@ abstract class AppLocalDbRepository extends RoomDatabase {
 
 public class AppLocalDB {
     static public AppLocalDbRepository getAppDB() {
-        return Room.databaseBuilder(ManiPediApplication.getMyContext(),
-                        AppLocalDbRepository.class,
-                        "dbFileName.db")
+        return Room.databaseBuilder(ManiPediApplication.getMyContext(), AppLocalDbRepository.class,
+                        "ManiPadi.db")
                 .fallbackToDestructiveMigration()
                 .build();
     }
