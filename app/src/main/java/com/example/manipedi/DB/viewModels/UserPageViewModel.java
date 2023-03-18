@@ -12,7 +12,11 @@ import java.util.List;
 
 public class UserPageViewModel extends ViewModel {
     private final LiveData<List<Post>> userPosts = PostModel.instance().getAllUserPosts();
-    private final LiveData<User> user = UserModel.instance().getSignedUser();
+    private LiveData<User> user = null;
+
+    public UserPageViewModel() {
+        UserModel.instance().getSignedUser(u -> user = u);
+    }
 
     public LiveData<List<Post>> getUserPosts() {
         return userPosts;

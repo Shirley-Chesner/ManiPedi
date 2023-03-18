@@ -10,7 +10,7 @@
     android:clickable="true">
     <!-- A CardView that contains a TextView -->
     <androidx.cardview.widget.CardView
-        android:id="@+id/card_view"
+        android:id="@+id/home_page_post"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -31,32 +31,26 @@
             android:layout_height="wrap_content"
             android:backgroundTintMode="add"
             android:clickable="true"
-            android:hapticFeedbackEnabled="false"
-            android:paddingLeft="8dp"
-            android:paddingTop="8dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="8dp">
+            android:hapticFeedbackEnabled="false">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/post_user_image"
                 android:layout_width="60dp"
                 android:layout_height="0dp"
-                android:layout_marginStart="6dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:shapeAppearanceOverlay="@style/circleImageView"
                 card_view:layout_constraintDimensionRatio="h,1:1"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent"
-                card_view:srcCompat="@drawable/user"
-                app:shapeAppearanceOverlay="@style/circleImageView"/>
+                card_view:srcCompat="@drawable/user" />
 
             <ImageView
                 android:id="@+id/post_extra_image"
-                android:layout_width="150dp"
+                android:layout_width="125dp"
                 android:layout_height="0dp"
-                android:layout_marginTop="13dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                card_view:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 card_view:layout_constraintDimensionRatio="h,1:1"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent"
@@ -69,7 +63,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:text="name"
-                android:textSize="24sp"
+                android:textSize="16sp"
                 card_view:layout_constraintStart_toEndOf="@+id/post_user_image"
                 card_view:layout_constraintTop_toTopOf="parent" />
 
@@ -77,10 +71,10 @@
                 android:id="@+id/score_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:text="Score:"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toBottomOf="@+id/post_user_image" />
 
@@ -90,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="TextView"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 card_view:layout_constraintBaseline_toBaselineOf="@+id/score_text"
                 card_view:layout_constraintStart_toEndOf="@+id/score_text" />
 
@@ -98,27 +92,81 @@
                 android:id="@+id/user_post_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="6dp"
                 android:layout_marginBottom="10dp"
                 android:text="TextView"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toStartOf="@+id/post_extra_image"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/user_post_location" />
+                card_view:layout_constraintTop_toBottomOf="@+id/user_score_number"
+                card_view:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/user_post_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:text="TextView"
                 card_view:layout_constraintStart_toEndOf="@+id/post_user_image"
                 card_view:layout_constraintTop_toBottomOf="@+id/post_user_name" />
 
+            <ImageView
+                android:id="@+id/homePage_nailPolishImage"
+                android:layout_width="100dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:layout_weight="1"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintDimensionRatio="h,1:1"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/post_extra_image"
+                card_view:srcCompat="@drawable/empty_image" />
+
+            <TextView
+                android:id="@+id/homePage_nailPolishName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="TextView"
+                card_view:layout_constraintBaseline_toBaselineOf="@+id/homePage_nailPolishBrand"
+                card_view:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/homePage_nailPolishBrand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="TextView"
+                card_view:layout_constraintEnd_toStartOf="@+id/homePage_nailPolishImage"
+                card_view:layout_constraintHorizontal_bias="0.0"
+                card_view:layout_constraintStart_toEndOf="@+id/homePage_nailPolishName"
+                card_view:layout_constraintTop_toTopOf="@+id/homePage_nailPolishImage" />
+
+            <TextView
+                android:id="@+id/homePage_nailPolishDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="TextView"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toStartOf="@+id/homePage_nailPolishImage"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/homePage_nailPolishBrand"
+                card_view:layout_constraintVertical_bias="0.0" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
+
 </LinearLayout>

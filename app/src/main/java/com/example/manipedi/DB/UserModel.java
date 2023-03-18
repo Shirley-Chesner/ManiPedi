@@ -39,12 +39,12 @@ public class UserModel {
         return UserAuthentication.getInstance().getUser() != null;
     }
 
-    public LiveData<User> getSignedUser() {
+    public void getSignedUser(Listener<LiveData<User>> listener) {
         if (profileUser.getValue() == null || !profileUser.getValue().getId().equals(getCurrentUserId())) {
-            refreshAllUsers((v) -> {});
+            refreshAllUsers((v) -> listener.onComplete(profileUser));
+        } else {
+            listener.onComplete(profileUser);
         }
-
-        return profileUser;
     }
 
     public void setSignedUser() {

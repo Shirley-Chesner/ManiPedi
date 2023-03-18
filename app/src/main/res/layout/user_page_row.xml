@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/te"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
     android:clickable="true">
     <!-- A CardView that contains a TextView -->
@@ -30,20 +30,14 @@
             android:layout_height="wrap_content"
             android:backgroundTintMode="add"
             android:clickable="true"
-            android:hapticFeedbackEnabled="false"
-            android:paddingLeft="8dp"
-            android:paddingTop="8dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="8dp">
+            android:hapticFeedbackEnabled="false">
 
             <ImageView
                 android:id="@+id/post_image"
-                android:layout_width="150dp"
+                android:layout_width="125dp"
                 android:layout_height="0dp"
-                android:layout_marginStart="6dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"
-                card_view:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
                 card_view:layout_constraintDimensionRatio="w,1:1"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent"
@@ -54,59 +48,110 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="32dp"
                 android:text="title"
-                android:textSize="24sp"
-                card_view:layout_constraintStart_toEndOf="@+id/post_image"
-                card_view:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/post_score_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="41dp"
-                android:text="Score:"
-                android:textSize="16sp"
-                card_view:layout_constraintBottom_toTopOf="@+id/post_description"
-                card_view:layout_constraintEnd_toEndOf="@+id/post_description"
-                card_view:layout_constraintTop_toTopOf="parent"
-                card_view:layout_constraintVertical_bias="1.0" />
+                android:textSize="20sp"
+                card_view:layout_constraintBaseline_toBaselineOf="@+id/post_location"
+                card_view:layout_constraintStart_toEndOf="@+id/post_image" />
 
             <TextView
                 android:id="@+id/post_score_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
+                android:layout_marginEnd="8dp"
                 android:text="num"
                 android:textSize="16sp"
-                card_view:layout_constraintBaseline_toBaselineOf="@+id/post_score_text"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintStart_toEndOf="@+id/post_score_text" />
+                card_view:layout_constraintBaseline_toBaselineOf="@+id/post_location"
+                card_view:layout_constraintEnd_toStartOf="@+id/userPageRow_editBtn" />
 
             <TextView
                 android:id="@+id/post_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:text="TextView"
                 android:textSize="16sp"
-                card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toEndOf="@+id/post_image"
                 card_view:layout_constraintTop_toBottomOf="@+id/post_title" />
 
             <TextView
                 android:id="@+id/post_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="19dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
                 android:text="location"
+                card_view:layout_constraintBottom_toTopOf="@+id/post_description"
+                card_view:layout_constraintEnd_toStartOf="@+id/post_score_number"
+                card_view:layout_constraintHorizontal_bias="0.0"
                 card_view:layout_constraintStart_toEndOf="@+id/post_title"
                 card_view:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/userPagePost_nailPolishImage"
+                android:layout_width="107dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintDimensionRatio="h,1:1"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/post_image"
+                card_view:srcCompat="@drawable/empty_image" />
+
+            <TextView
+                android:id="@+id/userPagePost_nailPolishName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="TextView"
+                android:textSize="16sp"
+                card_view:layout_constraintStart_toEndOf="@+id/userPagePost_nailPolishImage"
+                card_view:layout_constraintTop_toTopOf="@+id/userPagePost_nailPolishImage" />
+
+            <TextView
+                android:id="@+id/userPagePost_nailPolishBrand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="TextView"
+                card_view:layout_constraintBaseline_toBaselineOf="@+id/userPagePost_nailPolishName"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintHorizontal_bias="0.0"
+                card_view:layout_constraintStart_toEndOf="@+id/userPagePost_nailPolishName" />
+
+            <TextView
+                android:id="@+id/userPagePost_nailPolishDescription"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="TextView"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toEndOf="@+id/userPagePost_nailPolishImage"
+                card_view:layout_constraintTop_toBottomOf="@+id/userPagePost_nailPolishName"
+                card_view:layout_constraintVertical_bias="0.0" />
+
+            <ImageButton
+                android:id="@+id/userPageRow_editBtn"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="#00FFFFFF"
+                android:scaleType="fitCenter"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent"
+                card_view:srcCompat="@drawable/create_post" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

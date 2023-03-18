@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import com.example.manipedi.DB.UserModel;
 import com.example.manipedi.DB.firebase.UserAuthentication;
-import com.example.manipedi.DB.room.Schema.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,10 +27,11 @@ public class MainActivity extends AppCompatActivity {
 
         navController.addOnDestinationChangedListener(( controller,destination,  arguments) -> {
             if (destination.getId() == R.id.userPageFragment) {
-                User user = UserModel.instance().getSignedUser().getValue();
-                destination.addArgument("user",  new NavArgument.Builder()
-                        .setDefaultValue(user)
-                        .build());
+                UserModel.instance().getSignedUser(user -> {
+                    destination.addArgument("user",  new NavArgument.Builder()
+                            .setDefaultValue(user.getValue())
+                            .build());
+                });
             }
         });
 

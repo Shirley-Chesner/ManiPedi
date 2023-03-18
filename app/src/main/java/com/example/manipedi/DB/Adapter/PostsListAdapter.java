@@ -9,104 +9,88 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.manipedi.DB.NailPolishPostTask;
 import com.example.manipedi.DB.room.Schema.Post;
 import com.example.manipedi.R;
+import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
 import java.util.List;
 
 class PostsListHolder extends RecyclerView.ViewHolder {
-    TextView ownerName;
-    ImageView ownerPic;
-    TextView description;
-    TextView score;
-    TextView location;
-    List<Post> data;
+    private TextView ownerName;
+    private ImageView ownerPic;
+    private TextView description;
+    private TextView score;
+    private TextView location;
+    private TextView nailBrand;
+    private TextView nailName;
+    private TextView nailDescription;
+    private ImageView nailImage;
+    private List<Post> posts;
 
-    public PostsListHolder(@NonNull View itemView, PostsListAdapter.OnItemClickListener listener, List<Post> data) {
+    public PostsListHolder(@NonNull View itemView, List<Post> data) {
         super(itemView);
-        this.ownerName = itemView.findViewById(R.id.post_user_name);
-        this.ownerPic = itemView.findViewById(R.id.post_user_image);
-        this.description = itemView.findViewById(R.id.user_post_description);
-        this.score = itemView.findViewById(R.id.user_score_number);
-        this.location = itemView.findViewById(R.id.user_post_location);
-        this.data = data;
+        ownerName = itemView.findViewById(R.id.post_user_name);
+        ownerPic = itemView.findViewById(R.id.post_user_image);
+        description = itemView.findViewById(R.id.user_post_description);
+        score = itemView.findViewById(R.id.user_score_number);
+        location = itemView.findViewById(R.id.user_post_location);
+        nailBrand = itemView.findViewById(R.id.homePage_nailPolishBrand);
+        nailName = itemView.findViewById(R.id.homePage_nailPolishName);
+        nailDescription = itemView.findViewById(R.id.homePage_nailPolishDescription);
+        nailImage = itemView.findViewById(R.id.homePage_nailPolishImage);
+        posts = data;
 
-        // Add onClick for showing pictures
-
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int pos = getAdapterPosition();
-                listener.onItemClick(pos);
-            }
-        });
     }
 
-    public void bind(Post p, int pos) throws IOException {
-//        URL myUrl = new URL(p.avatarURL);
-//        InputStream inputStream = (InputStream)myUrl.getContent();
-//        Drawable drawable = Drawable.createFromStream(inputStream, null);
-        ownerName.setText(p.owner);
-//        ownerPic.setImageDrawable(drawable);
-        description.setText(p.description);
-        score.setText(p.score); // TODO: find out what to do about the float
-        location.setText(p.location);
-//        cb.setTag(pos);
+    public void bind(Post post) {
+        ownerName.setText(post.owner);
+        description.setText(post.description);
+        score.setText(post.score);
+        location.setText(post.location);
+        Picasso.get().load(post.getImage()).into(ownerPic);
+        // add loading
+        NailPolishPostTask nailPolishPostTask = new NailPolishPostTask(post.nailPolishUrl ,(nailPolish) -> {
+            nailName.setText(nailPolish.getName().trim());
+            nailDescription.setText(nailPolish.getDescription().trim());
+            nailBrand.setText(nailPolish.getBrand().trim());
+            Picasso.get().load(nailPolish.getImage()).into(nailImage);
+        });
+        nailPolishPostTask.execute();
     }
 }
 
 public class PostsListAdapter extends RecyclerView.Adapter<PostsListHolder> {
-    OnItemClickListener listener;
     LayoutInflater inflater;
     List<Post> data;
-
-    public static interface OnItemClickListener{
-        void onItemClick(int pos);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener listener){
-        this.listener = listener;
-    }
-
-    public void setData(List<Post> data){
-        clearItems();
-        addItems(data);
-    }
-
-
-    public void addItems(List<Post> newItems)
-    {
-        this.data.addAll(newItems);
-        notifyDataSetChanged();
-    }
-
-    public void clearItems()
-    {
-        this.data.clear();
-        notifyDataSetChanged();
-    }
-
 
     public PostsListAdapter(LayoutInflater inflater, List<Post> data){
         this.inflater = inflater;
         this.data = data;
     }
 
+    public void setPostsList(List<Post> newItems) {
+        data = newItems;
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public int getItemViewType(final int position) {
+        return R.layout.home_page_row;
+    }
+
     @NonNull
     @Override
     public PostsListHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.home_page_row, parent,false);
-        return new PostsListHolder(view, listener, data);
+        return new PostsListHolder(view, data);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PostsListHolder holder, int position) {
-        Post st = data.get(position);
-        try {
-            holder.bind(st,position);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!data.isEmpty()) {
+            Post post = data.get(position);
+            holder.bind(post);
         }
     }
 

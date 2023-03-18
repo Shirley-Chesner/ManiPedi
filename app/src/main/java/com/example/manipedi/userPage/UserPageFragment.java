@@ -103,9 +103,11 @@ public class UserPageFragment extends Fragment {
 
     private void initializeUser() {
         if (user == null) {
-            user = UserModel.instance().getSignedUser().getValue();
-            Log.d("Shirley", user.getEmail());
-            Log.d("Shirley", user.getPhotoUrl());
+            UserModel.instance().getSignedUser(u -> {
+                user = u.getValue();
+                Log.d("Shirley", user.getEmail());
+                Log.d("Shirley", user.getPhotoUrl());
+            });
         } //(User)getArguments().getSerializable(USER_KEY);
         else {
 //            userPageViewModel.getUser().observe(getViewLifecycleOwner(), user -> {
