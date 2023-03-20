@@ -7,8 +7,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.manipedi.DB.firebase.PostFirebaseModel;
 import com.example.manipedi.DB.room.DBImplementation;
+import com.example.manipedi.DB.room.Schema.FullPost;
 import com.example.manipedi.DB.room.Schema.Post;
-import com.example.manipedi.DB.room.Schema.PostWithUser;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class PostModel {
     private final PostFirebaseModel postFirebaseModel = new PostFirebaseModel();
 
     private final MutableLiveData<List<Post>> posts = new MutableLiveData<>();
-    private final MutableLiveData<List<PostWithUser>> postsWithUser = new MutableLiveData<>();
+    private final MutableLiveData<List<FullPost>> postsWithUser = new MutableLiveData<>();
     private final MutableLiveData<List<Post>> userPosts = new MutableLiveData<>();
     final public MutableLiveData<LoadingState> postsListLoadingState = new MutableLiveData<>(LoadingState.NOT_LOADING);
     final public MutableLiveData<LoadingState> postsWithUserListLoadingState = new MutableLiveData<>(LoadingState.NOT_LOADING);
@@ -29,7 +29,7 @@ public class PostModel {
         return instance;
     }
 
-    public LiveData<List<PostWithUser>> getAllPostsWithUser() {
+    public LiveData<List<FullPost>> getAllPostsWithUser() {
         if (postsWithUser.getValue() == null) refreshAllPostsWithUser();
 
         return postsWithUser;
@@ -54,7 +54,7 @@ public class PostModel {
     public void refreshAllPostsWithUser() {
         postsWithUserListLoadingState.postValue(LoadingState.LOADING);
         refreshUserPosts((v) -> db.executor.execute(() -> {
-            List<PostWithUser> postsList = db.getPostDao().getPostsWithUser();
+            List<FullPost> postsList = db.getPostDao().getPostsWithUser();
             postsWithUser.postValue(postsList);
             postsWithUserListLoadingState.postValue(LoadingState.NOT_LOADING);
         }));

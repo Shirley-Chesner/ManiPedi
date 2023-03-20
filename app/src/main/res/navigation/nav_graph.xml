@@ -37,5 +37,20 @@
         <argument
             android:name="user"
             app:argType="com.example.manipedi.DB.room.Schema.User" />
+        <action
+            android:id="@+id/action_userPageFragment_to_editPostFragment"
+            app:destination="@id/editPostFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editPostFragment"
+        android:name="com.example.manipedi.createPost.EditPostFragment"
+        tools:layout="@layout/fragment_edit_post"
+        >
+        <argument
+            android:name="post"
+            app:argType="com.example.manipedi.DB.room.Schema.Post" />
+        <argument
+            android:name="nailPolish"
+            app:argType="com.example.manipedi.DB.NailPolish" />
     </fragment>
 </navigation>

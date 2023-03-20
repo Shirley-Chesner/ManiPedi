@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.manipedi.DB.NailPolishPostTask;
-import com.example.manipedi.DB.room.Schema.PostWithUser;
+import com.example.manipedi.DB.room.Schema.FullPost;
 import com.example.manipedi.R;
 import com.squareup.picasso.Picasso;
 
@@ -27,9 +27,8 @@ class PostsListHolder extends RecyclerView.ViewHolder {
     private TextView nailName;
     private TextView nailDescription;
     private ImageView nailImage;
-    private List<PostWithUser> posts;
 
-    public PostsListHolder(@NonNull View itemView, List<PostWithUser> data) {
+    public PostsListHolder(@NonNull View itemView, List<FullPost> data) {
         super(itemView);
         ownerName = itemView.findViewById(R.id.post_user_name);
         ownerPic = itemView.findViewById(R.id.post_user_image);
@@ -41,11 +40,10 @@ class PostsListHolder extends RecyclerView.ViewHolder {
         nailName = itemView.findViewById(R.id.homePage_nailPolishName);
         nailDescription = itemView.findViewById(R.id.homePage_nailPolishDescription);
         nailImage = itemView.findViewById(R.id.homePage_nailPolishImage);
-        posts = data;
 
     }
 
-    public void bind(PostWithUser post) {
+    public void bind(FullPost post) {
         ownerName.setText(post.user.getEmail());
         description.setText(post.post.getDescription());
         score.setText(post.post.getScore());
@@ -64,14 +62,14 @@ class PostsListHolder extends RecyclerView.ViewHolder {
 
 public class PostsListAdapter extends RecyclerView.Adapter<PostsListHolder> {
     LayoutInflater inflater;
-    List<PostWithUser> data;
+    List<FullPost> data;
 
-    public PostsListAdapter(LayoutInflater inflater, List<PostWithUser> data){
+    public PostsListAdapter(LayoutInflater inflater, List<FullPost> data){
         this.inflater = inflater;
         this.data = data;
     }
 
-    public void setPostsList(List<PostWithUser> newItems) {
+    public void setPostsList(List<FullPost> newItems) {
         data = newItems;
         notifyDataSetChanged();
     }

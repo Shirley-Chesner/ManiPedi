@@ -9,6 +9,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 
+import com.squareup.picasso.Picasso;
+
 public class ImageLaunchers {
     private ImageView image;
 
@@ -36,6 +38,10 @@ public class ImageLaunchers {
 
     public void setImage(ImageView image) {
         this.image = image;
+    }
+
+    public void loadImage(String url) {
+        Picasso.get().load(url).into(image);
     }
 
     public Bitmap getPhoto() {

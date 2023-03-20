@@ -57,7 +57,7 @@
                 android:id="@+id/post_score_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="16dp"
                 android:text="num"
                 android:textSize="16sp"
                 card_view:layout_constraintBaseline_toBaselineOf="@+id/post_location"

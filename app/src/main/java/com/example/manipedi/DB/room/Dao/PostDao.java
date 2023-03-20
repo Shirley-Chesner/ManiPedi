@@ -9,7 +9,7 @@ import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.example.manipedi.DB.room.Schema.Post;
-import com.example.manipedi.DB.room.Schema.PostWithUser;
+import com.example.manipedi.DB.room.Schema.FullPost;
 
 import java.util.List;
 
@@ -32,7 +32,7 @@ public interface PostDao {
 
     @Transaction
     @Query("SELECT * FROM Post")
-    List<PostWithUser> getPostsWithUser();
+    List<FullPost> getPostsWithUser();
 
     @Transaction
     @Query("SELECT * FROM Post WHERE owner=:userId")

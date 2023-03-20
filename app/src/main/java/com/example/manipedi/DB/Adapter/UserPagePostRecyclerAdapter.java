@@ -9,14 +9,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.manipedi.DB.NailPolish;
 import com.example.manipedi.DB.NailPolishPostTask;
 import com.example.manipedi.DB.room.Schema.Post;
 import com.example.manipedi.R;
+import com.example.manipedi.userPage.UserPageFragmentDirections;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 class UserProfilePostViewHolder extends RecyclerView.ViewHolder {
     private Post post;
@@ -27,6 +31,7 @@ class UserProfilePostViewHolder extends RecyclerView.ViewHolder {
     private TextView nailName;
     private TextView nailDescription;
     private ImageView nailImage;
+    private TextView score;
     private ImageButton editButton;
 
     public UserProfilePostViewHolder(@NonNull View itemView) {
@@ -35,13 +40,11 @@ class UserProfilePostViewHolder extends RecyclerView.ViewHolder {
         this.description = itemView.findViewById(R.id.post_description);
         this.location = itemView.findViewById(R.id.post_location);
         this.editButton = itemView.findViewById(R.id.userPageRow_editBtn);
+        this.score = itemView.findViewById(R.id.post_score_number);
         this.nailBrand = itemView.findViewById(R.id.userPagePost_nailPolishBrand);
         this.nailDescription = itemView.findViewById(R.id.userPagePost_nailPolishDescription);
         this.nailImage = itemView.findViewById(R.id.userPagePost_nailPolishImage);
         this.nailName = itemView.findViewById(R.id.userPagePost_nailPolishName);
-
-//        this.editButton.setOnClickListener(v -> Navigation.findNavController(itemView)
-//                .navigate(UserProfileFragmentDirections.actionUserProfileFragmentToEditPostFragment(post)));
     }
 
     public void bind(Post post) {
@@ -49,14 +52,21 @@ class UserProfilePostViewHolder extends RecyclerView.ViewHolder {
         Picasso.get().load(post.getImage()).into(image);
         description.setText(post.getDescription());
         location.setText(post.getLocation());
-        // add loading
+        score.setText(post.getScore());
+
+        AtomicReference<NailPolish> postNailPolish = new AtomicReference<>();
+
         NailPolishPostTask nailPolishPostTask = new NailPolishPostTask(post.nailPolishUrl ,(nailPolish) -> {
+            postNailPolish.set(nailPolish);
             nailName.setText(nailPolish.getName().trim());
             nailDescription.setText(nailPolish.getDescription().trim());
             nailBrand.setText(nailPolish.getBrand().trim());
             Picasso.get().load(nailPolish.getImage()).into(nailImage);
         });
         nailPolishPostTask.execute();
+
+        this.editButton.setOnClickListener(v -> Navigation.findNavController(itemView)
+                .navigate(UserPageFragmentDirections.actionUserPageFragmentToEditPostFragment(post, postNailPolish.get())));
     }
 }
 

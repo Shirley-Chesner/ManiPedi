@@ -1,7 +1,5 @@
 package com.example.manipedi.DB.room.Schema;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -9,7 +7,6 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import com.example.manipedi.DB.NailPolish;
-import com.example.manipedi.DB.room.ManiPediApplication;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -27,10 +24,6 @@ public class Post implements Serializable {
     public String image = "";
     public String nailPolishName = "";
     public String nailPolishUrl = "";
-    private Long lastUpdated;
-
-    public static final String LAST_UPDATED = "lastUpdated";
-    public static final String LOCAL_LAST_UPDATED = "users_local_last_update";
 
     public Post(@NonNull String id,
                 String owner,
@@ -124,14 +117,6 @@ public class Post implements Serializable {
         return nailPolishName;
     }
 
-    public Long getLastUpdated() {
-        return lastUpdated;
-    }
-
-    public void setLastUpdated(Long lastUpdated) {
-        this.lastUpdated = lastUpdated;
-    }
-
     public Map<String, Object> toObject() {
         Map<String, Object> obj = new HashMap<>();
         obj.put("id", getId());
@@ -144,17 +129,5 @@ public class Post implements Serializable {
         obj.put("nailPolishUrl",getNailPolishUrl());
 
         return obj;
-    }
-
-    public static Long getLocalLastUpdate() {
-        SharedPreferences sharedPref = ManiPediApplication.getMyContext().getSharedPreferences("TAG", Context.MODE_PRIVATE);
-        return sharedPref.getLong(LOCAL_LAST_UPDATED, 0);
-    }
-
-    public static void setLocalLastUpdate(Long time) {
-        SharedPreferences sharedPref = ManiPediApplication.getMyContext().getSharedPreferences("TAG", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putLong(LOCAL_LAST_UPDATED,time);
-        editor.commit();
     }
 }

@@ -4,14 +4,14 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.manipedi.DB.PostModel;
-import com.example.manipedi.DB.room.Schema.PostWithUser;
+import com.example.manipedi.DB.room.Schema.FullPost;
 
 import java.util.List;
 
 public class HomePageViewModel extends ViewModel {
-    private final LiveData<List<PostWithUser>> postsWithUser = PostModel.instance().getAllPostsWithUser();
+    private final LiveData<List<FullPost>> postsWithUser = PostModel.instance().getAllPostsWithUser();
 
-    public LiveData<List<PostWithUser>> getAllPostsWithUser() {
+    public LiveData<List<FullPost>> getAllPostsWithUser() {
         return postsWithUser;
     }
 }

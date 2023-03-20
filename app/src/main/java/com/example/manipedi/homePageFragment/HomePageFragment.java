@@ -7,13 +7,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.manipedi.DB.Adapter.PostsListAdapter;
-import com.example.manipedi.DB.room.Schema.PostWithUser;
+import com.example.manipedi.DB.room.Schema.FullPost;
 import com.example.manipedi.DB.viewModels.HomePageViewModel;
 import com.example.manipedi.databinding.FragmentHomePageBinding;
 
@@ -25,7 +24,7 @@ public class HomePageFragment extends Fragment {
     private HomePageViewModel homePageViewModel;
 
     private PostsListAdapter adapter;
-    private List<PostWithUser> posts = new LinkedList<>();
+    private List<FullPost> posts = new LinkedList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,12 +48,5 @@ public class HomePageFragment extends Fragment {
         homePageViewModel.getAllPostsWithUser().observe(getViewLifecycleOwner(), (posts) -> {
             adapter.setPostsList(posts);
         });
-    }
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
-//        reloadData();
     }
 }

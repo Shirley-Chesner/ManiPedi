@@ -63,10 +63,6 @@ public class UserPageFragment extends Fragment {
         binding = FragmentUserPageBinding.inflate(inflater, container, false);
 
         mAuth = UserAuthentication.getInstance();
-        adapter = new UserPagePostRecyclerAdapter(getLayoutInflater(), userPosts);
-
-        binding.userPageFragmentUserPostsList.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.userPageFragmentUserPostsList.setAdapter(adapter);
 
         initializeVariables();
 
@@ -82,7 +78,6 @@ public class UserPageFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         initializeVariables();
         initializeRecycleView();
-//        setEditProfileListener();
     }
 
     @Override
@@ -105,8 +100,6 @@ public class UserPageFragment extends Fragment {
         if (user == null) {
             UserModel.instance().getSignedUser(u -> {
                 user = u.getValue();
-                Log.d("Shirley", user.getEmail());
-                Log.d("Shirley", user.getPhotoUrl());
             });
         } //(User)getArguments().getSerializable(USER_KEY);
         else {

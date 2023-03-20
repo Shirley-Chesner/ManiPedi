@@ -5,7 +5,7 @@ import androidx.room.Relation;
 
 import java.io.Serializable;
 
-public class PostWithUser implements Serializable {
+public class FullPost implements Serializable {
     @Embedded
     public Post post;
     @Relation(parentColumn = "owner", entityColumn = "id")
