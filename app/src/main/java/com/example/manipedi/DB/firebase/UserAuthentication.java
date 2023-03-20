@@ -2,6 +2,7 @@ package com.example.manipedi.DB.firebase;
 
 import android.widget.EditText;
 
+import com.example.manipedi.DB.Listener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -44,21 +45,21 @@ public class UserAuthentication {
         return true;
     }
 
-    public void signUp(EditText email, EditText password, onCreateUser onCreateUser) {
+    public void signUp(EditText email, EditText password, Listener<FirebaseUser> onCreateUser) {
         this.signUp(email.getText().toString(), password.getText().toString(), onCreateUser);
     }
 
-    public void signUp(String email, String password, onCreateUser onCreateUser) {
+    public void signUp(String email, String password, Listener<FirebaseUser> onCreateUser) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task ->
                         this.onCompleteListener(task, onCreateUser));
     }
 
-    public void login(EditText email, EditText password, onCreateUser onCreateUser) {
+    public void login(EditText email, EditText password, Listener<FirebaseUser> onCreateUser) {
         this.login(email.getText().toString(), password.getText().toString(), onCreateUser);
     }
 
-    public void login(String email, String password, onCreateUser onCreateUser) {
+    public void login(String email, String password, Listener<FirebaseUser> onCreateUser) {
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task ->
             this.onCompleteListener(task, onCreateUser));
     }
@@ -67,12 +68,12 @@ public class UserAuthentication {
         mAuth.signOut();
     }
 
-    void onCompleteListener(Task task, onCreateUser onCreateUser) {
+    void onCompleteListener(Task task, Listener<FirebaseUser> onCreateUser) {
         if (task.isSuccessful()) {
             FirebaseUser user = mAuth.getCurrentUser();
-            onCreateUser.action(user);
+            onCreateUser.onComplete(user);
         } else {
-            onCreateUser.action(null);
+            onCreateUser.onComplete(null);
         }
     }
 
