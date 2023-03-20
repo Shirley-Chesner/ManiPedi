@@ -44,7 +44,7 @@ class PostsListHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(FullPost post) {
-        ownerName.setText(post.user.getEmail());
+        ownerName.setText(post.user.getName());
         description.setText(post.post.getDescription());
         score.setText(post.post.getScore());
         location.setText(post.post.getLocation());

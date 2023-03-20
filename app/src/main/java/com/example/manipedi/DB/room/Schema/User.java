@@ -1,14 +1,11 @@
 package com.example.manipedi.DB.room.Schema;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.example.manipedi.DB.room.ManiPediApplication;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.io.Serializable;
@@ -17,7 +14,6 @@ import java.util.Map;
 
 @Entity
 public class User implements Serializable {
-
     @PrimaryKey
     @NonNull
     private String id;
@@ -25,7 +21,6 @@ public class User implements Serializable {
     private String lastName;
     private String email;
     private String photoUrl;
-    private Long lastUpdated;
 
     public static final String COLLECTION = "Users";
     public static final String ID = "id";
@@ -33,9 +28,6 @@ public class User implements Serializable {
     public static final String LAST_NAME = "lastName";
     public static final String EMAIL = "email";
     public static final String PHOTO_URL = "photoUrl";
-    public static final String LAST_UPDATED = "lastUpdated";
-
-    public static final String LOCAL_LAST_UPDATED = "users_local_last_update";
 
     public User(@NonNull String id, String firstName, String lastName, String email, String photoUrl) {
         this.id = id;
@@ -45,10 +37,12 @@ public class User implements Serializable {
         this.photoUrl = photoUrl;
     }
 
-    public User(@NonNull String id, EditText email, String photoUrl) {
+    public User(@NonNull String id, EditText email, String photoUrl, EditText firstName, EditText lastName) {
         this.id = id;
         this.email = email.getText().toString();
         this.photoUrl = photoUrl;
+        this.firstName = firstName.getText().toString();
+        this.lastName = lastName.getText().toString();
     }
 
     public User(User user) {
@@ -88,6 +82,8 @@ public class User implements Serializable {
         return lastName;
     }
 
+    public String getName() {return firstName + " " + lastName;}
+
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
@@ -106,14 +102,6 @@ public class User implements Serializable {
 
     public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
-    }
-
-    public Long getLastUpdated() {
-        return lastUpdated;
-    }
-
-    public void setLastUpdated(Long lastUpdated) {
-        this.lastUpdated = lastUpdated;
     }
 
     public static User fromJson(Map<String, Object> json) {
@@ -137,17 +125,5 @@ public class User implements Serializable {
         json.put(PHOTO_URL, getPhotoUrl());
 
         return json;
-    }
-
-    public static Long getLocalLastUpdate() {
-        SharedPreferences sharedPref = ManiPediApplication.getMyContext().getSharedPreferences("TAG", Context.MODE_PRIVATE);
-        return sharedPref.getLong(LOCAL_LAST_UPDATED, 0);
-    }
-
-    public static void setLocalLastUpdate(Long time) {
-        SharedPreferences sharedPref = ManiPediApplication.getMyContext().getSharedPreferences("TAG", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putLong(LOCAL_LAST_UPDATED,time);
-        editor.commit();
     }
 }

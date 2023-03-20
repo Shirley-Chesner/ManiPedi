@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +49,7 @@ public class LoginFragment extends Fragment {
             userAuthentication.login(email, password, user -> {
                 if (user != null) {
                     UserModel.instance().setSignedUser();
+                    Toast.makeText(getContext(), "Authentication success.", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(ManiPediApplication.getMyContext(), MainActivity.class));
                 } else {
                     Toast.makeText(getContext(), "Firebase Authentication failed.", Toast.LENGTH_SHORT).show();

@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_userPageFragment_to_editPostFragment"
             app:destination="@id/editPostFragment" />
+        <action
+            android:id="@+id/action_userPageFragment_to_editUserFragment"
+            app:destination="@id/editUserFragment" />
     </fragment>
     <fragment
         android:id="@+id/editPostFragment"
@@ -52,5 +55,14 @@
         <argument
             android:name="nailPolish"
             app:argType="com.example.manipedi.DB.NailPolish" />
+    </fragment>
+    <fragment
+        android:id="@+id/editUserFragment"
+        android:name="com.example.manipedi.userPage.editUserFragment"
+        tools:layout="@layout/fragment_edit_user"
+        >
+        <argument
+            android:name="user"
+            app:argType="com.example.manipedi.DB.room.Schema.User" />
     </fragment>
 </navigation>

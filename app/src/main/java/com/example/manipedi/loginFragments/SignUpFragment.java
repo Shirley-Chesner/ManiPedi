@@ -30,13 +30,14 @@ import com.example.manipedi.DB.firebase.UserAuthentication;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 public class SignUpFragment extends Fragment {
-
     private LoginFragmentManager fragmentManager;
     private ImageLaunchers imageLaunchers;
     private CircularProgressIndicator progressIndicator;
 
     private EditText email;
     private EditText password;
+    private EditText firstName;
+    private EditText lastName;
     private Button loginBtn;
     private Button signInBtn;
 
@@ -60,6 +61,8 @@ public class SignUpFragment extends Fragment {
     private void initializeVariables(View view) {
         email = view.findViewById(R.id.signUpFragment_EmailInput);
         password = view.findViewById(R.id.signUpFragment_PasswordInput);
+        firstName = view.findViewById(R.id.signUpFragment_firstNameInput);
+        lastName = view.findViewById(R.id.signUpFragment_lastNameInput);
         loginBtn = view.findViewById(R.id.signUpFragment_loginBtn);
         signInBtn = view.findViewById(R.id.signUpFragment_SignInBtn);
         progressIndicator = view.findViewById(R.id.signUpPage_spinner);
@@ -80,6 +83,11 @@ public class SignUpFragment extends Fragment {
             return;
         };
 
+        if (firstName.getText().equals("") || lastName.getText().equals("")) {
+            Toast.makeText(getContext(), "name is missing", Toast.LENGTH_SHORT).show();
+            return;
+        };
+
         userAuthentication.signUp(email, password, firebaseUser -> {
             if (firebaseUser == null) {
                 progressIndicator.hide();
@@ -87,7 +95,7 @@ public class SignUpFragment extends Fragment {
                 return;
             }
 
-            User user = new User(firebaseUser.getUid(), email, "");
+            User user = new User(firebaseUser.getUid(), email, "", firstName, lastName);
             UserFirebaseModel userModal = new UserFirebaseModel();
             userModal.uploadImage(user.getEmail(), imageLaunchers.getPhoto(), url -> {
                 if (url != null) user.setPhotoUrl(url);
@@ -97,6 +105,7 @@ public class SignUpFragment extends Fragment {
 
             UserModel.instance().setSignedUser();
 
+            Toast.makeText(getContext(), "Authentication success.", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(ManiPediApplication.getMyContext(), MainActivity.class));
         });
     }

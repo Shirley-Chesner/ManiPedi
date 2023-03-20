@@ -7,14 +7,15 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -48,16 +49,6 @@ public class UserPageFragment extends Fragment {
 
     public UserPageFragment() {}
 
-    public static UserPageFragment newInstance(User user) {
-        UserPageFragment fragment = new UserPageFragment();
-        Bundle args = new Bundle();
-
-        args.putSerializable(USER_KEY, user);
-        fragment.setArguments(args);
-
-        return fragment;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentUserPageBinding.inflate(inflater, container, false);
@@ -69,6 +60,10 @@ public class UserPageFragment extends Fragment {
         logOutBtn.setOnClickListener(view1 -> {
             UserModel.instance().signUserOut();
             startActivity(new Intent(getActivity(), LoginActivity.class));
+        });
+        binding.userPageEditButton.setOnClickListener(v -> {
+            Navigation.findNavController(binding.getRoot())
+                    .navigate(UserPageFragmentDirections.actionUserPageFragmentToEditUserFragment(user));
         });
 
         return binding.getRoot();
@@ -92,24 +87,25 @@ public class UserPageFragment extends Fragment {
         userName = binding.userPageFragmentUserName;
         recyclerView = binding.userPageFragmentUserPostsList;
         initializeUser();
-        userName.setText(user.getEmail());
+        userName.setText(user.getName());
         Picasso.get().load(user.getPhotoUrl()).into(userImage);
     }
 
     private void initializeUser() {
         if (user == null) {
-            UserModel.instance().getSignedUser(u -> {
-                user = u.getValue();
-            });
-        } //(User)getArguments().getSerializable(USER_KEY);
+            User argUser = (User)getArguments().getSerializable(USER_KEY);
+            if (argUser == null) {
+                UserModel.instance().getSignedUser(u -> {
+                    user = u.getValue();
+                });
+            } else user = argUser;
+        }
         else {
-//            userPageViewModel.getUser().observe(getViewLifecycleOwner(), user -> {
-                Log.d("Shirley", user.getEmail());
-                Log.d("Shirley", user.getPhotoUrl());
-//                this.user = user;
-                userName.setText(user.getEmail());
+            userPageViewModel.getUser().observe(getViewLifecycleOwner(), user -> {
+                this.user = user;
+                userName.setText(user.getName());
                 Picasso.get().load(user.getPhotoUrl()).into(userImage);
-//            });
+            });
         }
     }
 
