@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.manipedi.DB.NailPolishPostTask;
-import com.example.manipedi.DB.room.Schema.Post;
+import com.example.manipedi.DB.room.Schema.PostWithUser;
 import com.example.manipedi.R;
 import com.squareup.picasso.Picasso;
 
@@ -19,6 +19,7 @@ import java.util.List;
 class PostsListHolder extends RecyclerView.ViewHolder {
     private TextView ownerName;
     private ImageView ownerPic;
+    private ImageView postImage;
     private TextView description;
     private TextView score;
     private TextView location;
@@ -26,12 +27,13 @@ class PostsListHolder extends RecyclerView.ViewHolder {
     private TextView nailName;
     private TextView nailDescription;
     private ImageView nailImage;
-    private List<Post> posts;
+    private List<PostWithUser> posts;
 
-    public PostsListHolder(@NonNull View itemView, List<Post> data) {
+    public PostsListHolder(@NonNull View itemView, List<PostWithUser> data) {
         super(itemView);
         ownerName = itemView.findViewById(R.id.post_user_name);
         ownerPic = itemView.findViewById(R.id.post_user_image);
+        postImage = itemView.findViewById(R.id.post_extra_image);
         description = itemView.findViewById(R.id.user_post_description);
         score = itemView.findViewById(R.id.user_score_number);
         location = itemView.findViewById(R.id.user_post_location);
@@ -43,33 +45,33 @@ class PostsListHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void bind(Post post) {
-        ownerName.setText(post.owner);
-        description.setText(post.description);
-        score.setText(post.score);
-        location.setText(post.location);
-        Picasso.get().load(post.getImage()).into(ownerPic);
-        // add loading
-        NailPolishPostTask nailPolishPostTask = new NailPolishPostTask(post.nailPolishUrl ,(nailPolish) -> {
+    public void bind(PostWithUser post) {
+        ownerName.setText(post.user.getEmail());
+        description.setText(post.post.getDescription());
+        score.setText(post.post.getScore());
+        location.setText(post.post.getLocation());
+        NailPolishPostTask nailPolishPostTask = new NailPolishPostTask(post.post.getNailPolishUrl() ,(nailPolish) -> {
             nailName.setText(nailPolish.getName().trim());
             nailDescription.setText(nailPolish.getDescription().trim());
             nailBrand.setText(nailPolish.getBrand().trim());
             Picasso.get().load(nailPolish.getImage()).into(nailImage);
         });
         nailPolishPostTask.execute();
+        Picasso.get().load(post.user.getPhotoUrl()).into(ownerPic);
+        Picasso.get().load(post.post.getImage()).into(postImage);
     }
 }
 
 public class PostsListAdapter extends RecyclerView.Adapter<PostsListHolder> {
     LayoutInflater inflater;
-    List<Post> data;
+    List<PostWithUser> data;
 
-    public PostsListAdapter(LayoutInflater inflater, List<Post> data){
+    public PostsListAdapter(LayoutInflater inflater, List<PostWithUser> data){
         this.inflater = inflater;
         this.data = data;
     }
 
-    public void setPostsList(List<Post> newItems) {
+    public void setPostsList(List<PostWithUser> newItems) {
         data = newItems;
         notifyDataSetChanged();
     }
@@ -82,16 +84,12 @@ public class PostsListAdapter extends RecyclerView.Adapter<PostsListHolder> {
     @NonNull
     @Override
     public PostsListHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.home_page_row, parent,false);
-        return new PostsListHolder(view, data);
+        return new PostsListHolder(inflater.inflate(R.layout.home_page_row, parent,false), data);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PostsListHolder holder, int position) {
-        if (!data.isEmpty()) {
-            Post post = data.get(position);
-            holder.bind(post);
-        }
+        if (!data.isEmpty()) holder.bind(data.get(position));
     }
 
     @Override

@@ -8,8 +8,6 @@ import java.io.Serializable;
 public class PostWithUser implements Serializable {
     @Embedded
     public Post post;
-    @Relation(
-            parentColumn = "owner",
-            entityColumn = "id")
+    @Relation(parentColumn = "owner", entityColumn = "id")
     public User user;
 }

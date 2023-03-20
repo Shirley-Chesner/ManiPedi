@@ -92,7 +92,7 @@ public class SignUpFragment extends Fragment {
             userModal.uploadImage(user.getEmail(), imageLaunchers.getPhoto(), url -> {
                 if (url != null) user.setPhotoUrl(url);
 
-                UserModel.instance().addUser(user, (u) -> {});
+                UserModel.instance().addUser(user);
             });
 
             UserModel.instance().setSignedUser();

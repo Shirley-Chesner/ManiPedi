@@ -71,7 +71,7 @@ public class UserPageFragment extends Fragment {
         initializeVariables();
 
         logOutBtn.setOnClickListener(view1 -> {
-            UserAuthentication.getInstance().signOut();
+            UserModel.instance().signUserOut();
             startActivity(new Intent(getActivity(), LoginActivity.class));
         });
 
@@ -126,27 +126,9 @@ public class UserPageFragment extends Fragment {
         adapter = new UserPagePostRecyclerAdapter(getLayoutInflater(), userPosts);
         recyclerView.setAdapter(adapter);
 
-        observeUserPosts();
+        userPageViewModel.getUserPosts().observe(getViewLifecycleOwner(), (posts) -> {
+            userPosts = posts;
+            adapter.setPostsList(userPosts);
+        });
     }
-
-    private void observeUserPosts() {
-//        progressIndicator.show();
-//        binding.fragmentProfileMyPostsChip.setText(R.string.loading_posts);
-        userPageViewModel.getUserPosts().observe(getViewLifecycleOwner(), this::setPosts);
-    }
-
-    private void setPosts(List<Post> posts) {
-        userPosts = posts;
-//        updateChipText();
-//        progressIndicator.hide();
-        adapter.setPostsList(userPosts);
-    }
-
-//    private void updateChipText() {
-//        if (userPosts.isEmpty()) {
-//            binding.fragmentProfileMyPostsChip.setText(R.string.no_posts);
-//        } else {
-//            binding.fragmentProfileMyPostsChip.setText(R.string.my_posts);
-//        }
-//    }
 }

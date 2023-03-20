@@ -2,7 +2,6 @@ package com.example.manipedi.DB.firebase;
 
 import com.example.manipedi.DB.Listener;
 import com.example.manipedi.DB.room.Schema.User;
-import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -13,27 +12,22 @@ import java.util.Map;
 import java.util.Objects;
 
 public class UserFirebaseModel extends FirebaseModel {
-    private FirebaseAuth mAuth;
-
     public UserFirebaseModel() {
         super();
-        mAuth = FirebaseAuth.getInstance();
     }
 
-    public void getAllUsersSince(Long since, Listener<List<User>> callback) {
-        db.collection(User.COLLECTION)
-                .whereGreaterThanOrEqualTo(User.LAST_UPDATED, new Timestamp(since, 0))
-                .get()
-                .addOnCompleteListener(task -> {
-                    List<User> list = new LinkedList<>();
-                    if (task.isSuccessful()) {
-                        QuerySnapshot jsonList = task.getResult();
-                        for (DocumentSnapshot json : jsonList) {
-                            list.add(User.fromJson(Objects.requireNonNull(json.getData())));
-                        }
+    public void getAllUsersSince(Listener<List<User>> callback) {
+        db.collection(User.COLLECTION).get()
+            .addOnCompleteListener(task -> {
+                List<User> list = new LinkedList<>();
+                if (task.isSuccessful()) {
+                    QuerySnapshot jsonList = task.getResult();
+                    for (DocumentSnapshot json : jsonList) {
+                        list.add(User.fromJson(Objects.requireNonNull(json.getData())));
                     }
-                    callback.onComplete(list);
-                });
+                }
+                callback.onComplete(list);
+            });
     }
 
     public void addUser(User user, Listener<Void> listener) {

@@ -116,11 +116,11 @@ public class Post implements Serializable {
         this.image = image;
     }
 
-    private String getNailPolishUrl() {
+    public String getNailPolishUrl() {
         return  nailPolishUrl;
     }
 
-    private String getNailPolishName() {
+    public String getNailPolishName() {
         return nailPolishName;
     }
 

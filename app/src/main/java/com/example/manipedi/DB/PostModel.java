@@ -11,7 +11,6 @@ import com.example.manipedi.DB.room.Schema.Post;
 import com.example.manipedi.DB.room.Schema.PostWithUser;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class PostModel {
     private static final PostModel instance = new PostModel();
@@ -44,10 +43,8 @@ public class PostModel {
 
     public void refreshAllPosts(Listener listener) {
         postsListLoadingState.postValue(LoadingState.LOADING);
-        Long localLastUpdate = Post.getLocalLastUpdate();
-        postFirebaseModel.getAllPostsSince(localLastUpdate, list -> db.executor.execute(() -> {
-            Long time = updatePostsInRoom(localLastUpdate, list);
-            Post.setLocalLastUpdate(time);
+        postFirebaseModel.getAllPosts(list -> db.executor.execute(() -> {
+            updatePostsInRoom(list);
             posts.postValue(db.getPostDao().getAll());
             postsListLoadingState.postValue(LoadingState.NOT_LOADING);
             listener.onComplete(null);
@@ -73,17 +70,10 @@ public class PostModel {
         })));
     }
 
-    private Long updatePostsInRoom(Long localLastUpdate, List<Post> posts) {
-        AtomicReference<Long> time = new AtomicReference<>(localLastUpdate);
-
+    private void updatePostsInRoom(List<Post> posts) {
         for (Post post : posts) {
-            db.executor.execute(() -> {
-                if (time.get() < post.getLastUpdated())  time.set(post.getLastUpdated());
-
-                db.getPostDao().insertAll(post);
-            });
+            db.executor.execute(() -> db.getPostDao().insertAll(post));
         }
-        return time.get();
     }
 
     public void addPost(Post post) {

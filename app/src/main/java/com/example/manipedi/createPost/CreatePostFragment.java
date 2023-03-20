@@ -76,7 +76,6 @@ public class CreatePostFragment extends Fragment {
 
         nailPolishAutoComplete = binding.createPostNailPolishAutoComplete;
 
-        // add loading!!! please!!!
         NailPolishAutoCompleteTask nailPolishTask = new NailPolishAutoCompleteTask(nailPolishAutoComplete);
         nailPolishTask.execute();
 
@@ -119,8 +118,6 @@ public class CreatePostFragment extends Fragment {
     }
 
     private void createPost() {
-        // disable and enable buttons + show LOADINGGGG
-
         Post post = new Post(UUID.randomUUID().toString(),
                 UserModel.instance().getCurrentUserId(),
                 location, "0", description, "", nailPolish);
@@ -129,9 +126,5 @@ public class CreatePostFragment extends Fragment {
 
         Toast.makeText(getContext(), "created post", Toast.LENGTH_SHORT).show();
         Navigation.findNavController(binding.getRoot()).popBackStack();
-
-//        binding.addPostButton.setEnabled(true);
-//        progressIndicator.hide();
-
     }
 }

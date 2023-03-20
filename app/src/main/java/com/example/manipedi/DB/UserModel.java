@@ -20,7 +20,7 @@ public class UserModel {
 
     private final UserFirebaseModel firebaseUser = new UserFirebaseModel();
 
-    private final MutableLiveData<User> profileUser = new MutableLiveData<>();
+    private final MutableLiveData<User> currentUser = new MutableLiveData<>();
     private final MutableLiveData<List<User>> users = new MutableLiveData<>();
     public final MutableLiveData<LoadingState> usersListLoadingState = new MutableLiveData<>(LoadingState.NOT_LOADING);
 
@@ -40,17 +40,16 @@ public class UserModel {
     }
 
     public void getSignedUser(Listener<LiveData<User>> listener) {
-        if (profileUser.getValue() == null || !profileUser.getValue().getId().equals(getCurrentUserId())) {
-            refreshAllUsers((v) -> listener.onComplete(profileUser));
+        if (currentUser.getValue() == null || !currentUser.getValue().getId().equals(getCurrentUserId())) {
+            refreshAllUsers((v) -> listener.onComplete(currentUser));
         } else {
-            listener.onComplete(profileUser);
+            listener.onComplete(currentUser);
         }
     }
 
     public void setSignedUser() {
         db.executor.execute(() -> {
             User user = db.getUserDao().findById(getCurrentUserId());
-            Log.d("SHIRLEY", user == null ? "user is null for some fucking reason" : user.getEmail());
             if (user == null) {
                 refreshAllUsers((v) -> postProfileUser(db.getUserDao().findById(getCurrentUserId())));
             } else {
@@ -60,10 +59,11 @@ public class UserModel {
     }
 
     private void postProfileUser(User user) {
-        profileUser.postValue(user);
+        currentUser.postValue(user);
     }
 
     public void signUserOut() {
+        UserAuthentication.getInstance().signOut();
         db.executor.execute(() -> {
             postProfileUser(null);
         });
@@ -71,11 +71,9 @@ public class UserModel {
 
     public void refreshAllUsers(Listener listener) {
         usersListLoadingState.postValue(LoadingState.LOADING);
-        Long localLastUpdate = User.getLocalLastUpdate();
 
-        firebaseUser.getAllUsersSince(localLastUpdate, list -> db.executor.execute(() -> {
-            Long time = updateUsersInRoom(localLastUpdate, list);
-            User.setLocalLastUpdate(time);
+        firebaseUser.getAllUsersSince(list -> db.executor.execute(() -> {
+            updateUsersInRoom(list);
 
             users.postValue(db.getUserDao().getAll());
             postProfileUser(db.getUserDao().findById(getCurrentUserId()));
@@ -85,28 +83,19 @@ public class UserModel {
         }));
     }
 
-    private Long updateUsersInRoom(Long localLastUpdate, List<User> users) {
-        AtomicReference<Long> time = new AtomicReference<>(localLastUpdate);
-
+    private void updateUsersInRoom(List<User> users) {
         for (User user : users) {
-            db.executor.execute(() -> {
-                if (time.get() < user.getLastUpdated()) {
-                    time.set(user.getLastUpdated());
-                }
-                db.getUserDao().insertAll(user);
-            });
+            db.executor.execute(() ->  db.getUserDao().insertAll(user));
         }
-        return time.get();
     }
 
 
-    public void addUser(User user, Listener listener) {
+    public void addUser(User user) {
         firebaseUser.addUser(user, (Void) -> {
             db.executor.execute(() -> {
                 db.getUserDao().insert(user);
                 refreshAllUsers((v) -> {});
             });
-            listener.onComplete(null);
         });
     }
 
@@ -123,6 +112,4 @@ public class UserModel {
             listener.onComplete(null);
         });
     }
-
-
 }
