@@ -28,6 +28,7 @@ import com.example.manipedi.DB.room.Schema.Post;
 import com.example.manipedi.DB.viewModels.AddPostViewModel;
 import com.example.manipedi.ImageLaunchers;
 import com.example.manipedi.databinding.FragmentCreatePostBinding;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.squareup.picasso.Picasso;
 
 import java.util.UUID;
@@ -46,6 +47,7 @@ public class CreatePostFragment extends Fragment {
     private TextView nailPolishName;
     private TextView nailPolishDescription;
     private Button createPostBtn;
+    private CircularProgressIndicator progressIndicator;
 
     public CreatePostFragment() {}
 
@@ -71,6 +73,7 @@ public class CreatePostFragment extends Fragment {
     }
 
     private void initializeVariables() {
+        progressIndicator = binding.createPostPageSpinner;
         location = binding.createPostLocation;
         description = binding.createPostDescription;
 
@@ -118,12 +121,13 @@ public class CreatePostFragment extends Fragment {
     }
 
     private void createPost() {
+        progressIndicator.show();
         Post post = new Post(UUID.randomUUID().toString(),
                 UserModel.instance().getCurrentUserId(),
                 location, "0", description, "", nailPolish);
 
         addPostViewModel.addPost(post, imageLaunchers.getPhoto());
-
+        progressIndicator.hide();
         Toast.makeText(getContext(), "created post", Toast.LENGTH_SHORT).show();
         Navigation.findNavController(binding.getRoot()).popBackStack();
     }

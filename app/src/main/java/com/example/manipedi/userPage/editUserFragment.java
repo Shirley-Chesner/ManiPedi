@@ -16,6 +16,7 @@ import com.example.manipedi.DB.UserModel;
 import com.example.manipedi.DB.room.Schema.User;
 import com.example.manipedi.ImageLaunchers;
 import com.example.manipedi.databinding.FragmentEditUserBinding;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 import java.util.UUID;
 
@@ -30,6 +31,7 @@ public class editUserFragment extends Fragment {
 
     private FragmentEditUserBinding binding;
     private ImageLaunchers imageLaunchers;
+    private CircularProgressIndicator progressIndicator;
 
     public editUserFragment() {}
 
@@ -48,6 +50,7 @@ public class editUserFragment extends Fragment {
         firstName = binding.editUserFragmentFirstName;
         lastName = binding.editUserFragmentLastName;
         updateButton = binding.editUserFragmentEditBtn;
+        progressIndicator = binding.editUserPageSpinner;
 
         imageLaunchers = new ImageLaunchers(this, binding.editUserFragmentUserImage, binding.editUserFragmentUploadPhoto, binding.editUserFragmentTakePhoto);
         initializeData();
@@ -69,9 +72,11 @@ public class editUserFragment extends Fragment {
             user.setFirstName(firstName.getText().toString());
             user.setLastName(lastName.getText().toString());
 
+            progressIndicator.show();
             UserModel.instance().uploadImage(UUID.randomUUID().toString(), imageLaunchers.getPhoto(), url -> {
                 user.setPhotoUrl(url);
                 UserModel.instance().updateUser(user, (vv) -> {
+                    progressIndicator.hide();
                     Toast.makeText(getContext(), "updated post", Toast.LENGTH_SHORT).show();
                     Navigation.findNavController(binding.getRoot()).popBackStack();
                 });

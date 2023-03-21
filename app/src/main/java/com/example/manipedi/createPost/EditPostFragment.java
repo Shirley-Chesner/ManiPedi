@@ -23,6 +23,7 @@ import com.example.manipedi.DB.PostModel;
 import com.example.manipedi.DB.room.Schema.Post;
 import com.example.manipedi.ImageLaunchers;
 import com.example.manipedi.databinding.FragmentEditPostBinding;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.squareup.picasso.Picasso;
 
 import java.util.UUID;
@@ -41,6 +42,7 @@ public class EditPostFragment extends Fragment {
     private TextView nailPolishName;
     private TextView nailPolishDescription;
     private Button editPostBtn;
+    private CircularProgressIndicator progressIndicator;
 
     private static final String ARG_POST = "post";
     private static final String ARG_NAIL_POLISH = "nailPolish";
@@ -64,6 +66,7 @@ public class EditPostFragment extends Fragment {
         nailPolishName = binding.editPostNailName;
         nailPolishDescription = binding.editPostNailPolishDescription;
         editPostBtn = binding.editPostEditBtn;
+        progressIndicator = binding.editPostPageSpinner;
         imageLaunchers = new ImageLaunchers(this, binding.editPostPostImage,
                 binding.editPostFromGallery, binding.editPostTakePhoto);
         nailPolishAutoComplete = binding.editPostNailPolishAutoComplete;
@@ -122,6 +125,7 @@ public class EditPostFragment extends Fragment {
     }
 
     private void updatePost() {
+        progressIndicator.show();
         Post post = new Post(oldPost.getId(),
                 oldPost.getOwner(),
                 location, oldPost.getScore(), description, "", nailPolish);
@@ -129,6 +133,7 @@ public class EditPostFragment extends Fragment {
         PostModel.instance().uploadImage(UUID.randomUUID().toString(), imageLaunchers.getPhoto(), url -> {
             post.setImage(url);
             PostModel.instance().updatePost(post);
+            progressIndicator.hide();
             Toast.makeText(getContext(), "updated post", Toast.LENGTH_SHORT).show();
             Navigation.findNavController(binding.getRoot()).popBackStack();
         });

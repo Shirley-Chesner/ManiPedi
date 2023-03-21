@@ -27,6 +27,7 @@ import com.example.manipedi.DB.viewModels.UserPageViewModel;
 import com.example.manipedi.LoginActivity;
 import com.example.manipedi.DB.firebase.UserAuthentication;
 import com.example.manipedi.databinding.FragmentUserPageBinding;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.squareup.picasso.Picasso;
 
 import java.util.LinkedList;
@@ -46,6 +47,7 @@ public class UserPageFragment extends Fragment {
     private TextView userName;
     private RecyclerView recyclerView;
     private UserPagePostRecyclerAdapter adapter;
+    private CircularProgressIndicator progressIndicator;
 
     public UserPageFragment() {}
 
@@ -86,6 +88,7 @@ public class UserPageFragment extends Fragment {
         userImage = binding.userPageFragmentUserImage;
         userName = binding.userPageFragmentUserName;
         recyclerView = binding.userPageFragmentUserPostsList;
+        progressIndicator = binding.userPageSpinner;
         initializeUser();
         userName.setText(user.getName());
         Picasso.get().load(user.getPhotoUrl()).into(userImage);
@@ -114,8 +117,9 @@ public class UserPageFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new UserPagePostRecyclerAdapter(getLayoutInflater(), userPosts);
         recyclerView.setAdapter(adapter);
-
+        progressIndicator.show();
         userPageViewModel.getUserPosts().observe(getViewLifecycleOwner(), (posts) -> {
+            progressIndicator.hide();
             userPosts = posts;
             adapter.setPostsList(userPosts);
         });

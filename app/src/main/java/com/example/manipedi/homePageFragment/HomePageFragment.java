@@ -45,7 +45,9 @@ public class HomePageFragment extends Fragment {
         binding.PostsList.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.PostsList.setAdapter(adapter);
 
+        binding.homePageSpinner.show();
         homePageViewModel.getAllPostsWithUser().observe(getViewLifecycleOwner(), (posts) -> {
+            binding.homePageSpinner.hide();
             adapter.setPostsList(posts);
         });
     }
